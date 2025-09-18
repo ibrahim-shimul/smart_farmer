@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CART MODAL - UPDATED */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #fff;
+            color: #333;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 15px 20px;
+            gap: 10px;
+        }
+
+        .left-controls input[type="text"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 5px;
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: gray;
+            font-size: 14px;
+        }
+
+        .new-price {
+            color: green;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .add-to-cart {
+            background: green;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 5px;
+            border-radius: 4px;
+        }
+
+        .add-to-cart:hover {
+            background: darkgreen;
+        }
+
+        .add-to-cart:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .pagination button {
+            margin: 0 2px;
+            padding: 5px 10px;
+        }
+
+        .pagination .active-page {
+            background-color: green;
+            color: white;
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+        }
+
+        .cart-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        /* ------------footer------------------ */
+        /* body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        footer {
+            background-color: #1e2833;
+            color: #fff;
+        }
+
+        .footer-top {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 40px 60px;
+            gap: 30px;
+        }
+
+        .footer-column {
+            flex: 1 1 200px;
+        }
+
+        .footer-column h3 {
+            border-bottom: 2px solid #4caf50;
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .logo-desc h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .leaf {
+            color: #4caf50;
+        }
+
+        .footer-column p {
+            line-height: 1.6;
+            font-size: 0.9em;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            color: #fff;
+            margin-right: 10px;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #4caf50;
+        }
+
+        .subscribe-form {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .subscribe-form input[type="email"] {
+            flex: 1;
+            padding: 8px;
+            border-radius: 4px 0 0 4px;
+            border: none;
+            outline: none;
+        }
+
+        .subscribe-form button {
+            padding: 8px 12px;
+            border: none;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .subscribe-form button:hover {
+            background-color: #43a047;
+        } */
+
+        /* Footer bottom */
+        /* .footer-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px 60px;
+            border-top: 1px solid #444;
+            font-size: 0.85em;
+        }
+
+        .footer-bottom nav a {
+            color: #fff;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom nav a:hover {
+            color: #4caf50;
+        }
+
+        @media (max-width: 768px) {
+            .footer-top {
+                flex-direction: column;
+                padding: 30px 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                padding: 20px;
+            }
+        } */
+    </style>
+</head>
+
+<body>
+
+    
+    <!-- -----------------farming------------------------ -->
+   <header class="top-bar">
+        <div class="top-left">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Green_cow_logo.svg/512px-Green_cow_logo.svg.png"
+                alt="Logo" class="logo">
+            <span class="brand">Smart Farmers</span>
+        </div>
+
+        <div class="top-center">
+            <a href="live weather.html"><button id="weather-btn">🌤 Live Weather</button></a>
+        </div>
+
+        <div class="top-right">
+            <a href="ai chat.html"> <button id="voice-btn">🎤 AI Voice Assistant</button></a>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <section>
+        <nav class="navbar">
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="nav-link active">Farming</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="fruitCrops.html">Fruit Crops</a></li>
+                            <li><a href="fieldCrops.html">Field Crops</a></li>
+                            <li><a href="vegetable.html">Vegetable Crops</a></li>
+                            <li><a href="organic.html">Organic Culture</a></li>
+                            <li><a href="water-management.html">Water Management</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="service.html" class="nav-link">Services</a></li>
+                    <li><a href="subsidy.html" class="nav-link">Subsidy</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="nav-link active">Market_place</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="seller.html">Seller</a></li>
+                            <li><a href="buyer.html">Buyer</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="dropdown">
+                    <a href="#" class="nav-link active">Farmers</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="Labor_log.html">Labor Job </a></li>
+                        <li><a href="jobs.html">Workers</a></li>
+                    </ul>
+                </li>
+                    <li><a href="#" class="nav-link">Elements</a></li>
+                    <li><a href="#" class="nav-link">Faq</a></li>
+                    <li><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+    <!-- ---------------shop----------- -->
+
+    <header>
+        <h1>Shop</h1>
+        <div class="cart" id="cart-btn">
+            🛒 Cart: <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <div class="shop-header">
+        <div class="left-controls">
+            <input type="text" id="searchBox" placeholder="Search products...">
+            <label>
+                Max Price: <input type="range" id="priceFilter" min="0" max="50" value="50">
+                <span id="priceValue">50</span>
+            </label>
+        </div>
+        <div class="right-controls">
+            <p>Showing <span id="range">1–12</span> of <span id="total-products">0</span> results</p>
+            <select id="sortSelect">
+                <option value="default">Default sorting</option>
+                <option value="priceLow">Price: low to high</option>
+                <option value="priceHigh">Price: high to low</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="product-grid" class="product-grid">
+        <!-- Products will be inserted here by JS -->
+    </div>
+
+    <div class="pagination">
+        <button id="prevPage" disabled>Prev</button>
+        <span id="page-numbers"></span>
+        <button id="nextPage">Next</button>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <h2>Your Cart</h2>
+            <ul id="cart-items"></ul>
+            <p>Total: $<span id="cart-total">0</span></p>
+            <button id="close-cart">Close</button>
+        </div>
+    </div>
+
+
+    <!-- /* ------------footer------------------ */ -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-column logo-desc">
+                <h2><span class="leaf">🌿</span> Smart Farming</h2>
+                <p>Organic farming is beneficial to a wide range of organisms. It restores the biodiversity of the core
+                    resources and habitat of the region. The symbiosis between flora and fauna, animals, and humans with
+                    a chemical-free environment is paradise on Earth.</p>
+            </div>
+            <div class="footer-column contact">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Anthony Benoit 490 E Main Street Norwich CT 06360</p>
+                <p><i class="fas fa-phone"></i> +1 (2) 345 6789</p>
+                <p><i class="fas fa-fax"></i> +1 (2) 345 6789</p>
+                <p><i class="fas fa-envelope"></i> contact@yourdomain.com</p>
+            </div>
+            <div class="footer-column social">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-google"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column subscribe">
+                <h3>Subscribe</h3>
+                <p>Enter your email and we'll send you latest information and plans.</p>
+                <div class="subscribe-form">
+                    <input type="email" placeholder="Your Email ID" id="subscribe-email">
+                    <button id="subscribe-btn"><i class="fas fa-envelope"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright © 2018. All rights reserved by, DesignThemes</p>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="#">Join Us</a>
+                <a href="service.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            { name: "Apples", oldPrice: 20, price: 10, stock: 5, img: "https://tse2.mm.bing.net/th/id/OIP.98_tb9NLEGMUzRF3re0QbAAAAA" },
+            { name: "Assorted Apples", oldPrice: 15, price: 12, stock: 3, img: "https://img.freepik.com/premium-photo/apples-with-transparent-background-high-quality-ultra-hd_670382-58936.jpg" },
+            { name: "Bananas", oldPrice: null, price: 9, stock: 0, img: "https://img.freepik.com/premium-photo/three-bananas-are-sitting-white-background_873925-85372.jpg" },
+            { name: "Citrus Fruit", oldPrice: null, price: 10, stock: 6, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQC-YdJgYQyQjmGQF3TriVPprawh_v0dJ6IJQ&s" },
+            { name: "Common Fig", oldPrice: null, price: 15, stock: 4, img: "https://img.freepik.com/premium-photo/intense-color-saturation-fig-half-open-white-background_899449-44869.jpg" },
+            { name: "Currant Fruit", oldPrice: null, price: 12, stock: 7, img: "https://tse1.mm.bing.net/th/id/OIP.2Cs_l39lsKt60OL4UfMyZQHaHa" },
+            { name: "Grapes", oldPrice: null, price: 18, stock: 2, img: "https://tse3.mm.bing.net/th/id/OIP.3FNlup8d8cpeooGtQCf5OAHaGV" },
+            { name: "Green Apple", oldPrice: null, price: 15, stock: 5, img: "https://static.vecteezy.com/system/resources/previews/026/511/236/non_2x/green-apple-isolated-on-white-background-ai-generated-photo.jpg" },
+            { name: "Kiwi Fruit", oldPrice: null, price: 20, stock: 3, img: "https://tse4.mm.bing.net/th/id/OIP.-GanFPVkXK0N8N20RSqoYQHaFp" },
+            { name: "Lingonberry", oldPrice: 15, price: 12, stock: 4, img: "https://static.vecteezy.com/system/resources/previews/052/410/257/non_2x/lingonberry-isolated-on-transparent-background-free-photo.jpg" },
+            { name: "Mushmelon", oldPrice: null, price: 18, stock: 5, img: "https://static.vecteezy.com/system/resources/previews/029/334/510/non_2x/muskmelon-transparent-background-png.png" },
+            { name: "Oranges", oldPrice: null, price: 15, stock: 6, img: "https://thumbs.dreamstime.com/b/four-oranges-placed-flat-surface.jpg" }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cartCount = cart.length;
+        let currentPage = 1;
+        const itemsPerPage = 8;
+        let originalProducts = [...products];
+
+        document.getElementById("total-products").innerText = products.length;
+        updateCart(); // Load cart on start
+
+        function displayProducts() {
+            const searchQuery = document.getElementById("searchBox").value.toLowerCase();
+            const maxPrice = Number(document.getElementById("priceFilter").value);
+
+            let filtered = products.filter(p =>
+                p.name.toLowerCase().includes(searchQuery) && p.price <= maxPrice
+            );
+
+            document.getElementById("total-products").innerText = filtered.length;
+
+            const productGrid = document.getElementById("product-grid");
+            productGrid.innerHTML = "";
+
+            let start = (currentPage - 1) * itemsPerPage;
+            let end = start + itemsPerPage;
+            let paginatedItems = filtered.slice(start, end);
+
+            document.getElementById("range").innerText = `${start + 1}–${Math.min(end, filtered.length)}`;
+
+            paginatedItems.forEach(p => {
+                let productDiv = document.createElement("div");
+                productDiv.classList.add("product");
+
+                productDiv.innerHTML = `
+            <img src="${p.img}" alt="${p.name}">
+            <h3>${p.name}</h3>
+            ${p.oldPrice ? `<span class="old-price">$${p.oldPrice}</span> ` : ""}
+            <span class="new-price">$${p.price}</span>
+            <br>
+            <button class="add-to-cart" ${p.stock === 0 ? "disabled" : ""}>
+                ${p.stock === 0 ? "Out of Stock" : "Add to Cart"}
+            </button>
+        `;
+
+                productDiv.querySelector(".add-to-cart")?.addEventListener("click", () => {
+                    cart.push(p);
+                    cartCount++;
+                    saveCart();
+                    updateCart();
+                });
+
+                productGrid.appendChild(productDiv);
+            });
+
+            updatePagination(filtered.length);
+        }
+
+        function updatePagination(totalItems) {
+            const prevBtn = document.getElementById("prevPage");
+            const nextBtn = document.getElementById("nextPage");
+            const pageNumbers = document.getElementById("page-numbers");
+
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+
+            pageNumbers.innerHTML = "";
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = i;
+                btn.classList.toggle("active-page", i === currentPage);
+                btn.onclick = () => {
+                    currentPage = i;
+                    displayProducts();
+                };
+                pageNumbers.appendChild(btn);
+            }
+
+            prevBtn.onclick = () => { currentPage--; displayProducts(); };
+            nextBtn.onclick = () => { currentPage++; displayProducts(); };
+        }
+
+        function updateCart() {
+            document.getElementById("cart-count").innerText = cartCount;
+            const cartItems = document.getElementById("cart-items");
+            const cartTotal = document.getElementById("cart-total");
+
+            cartItems.innerHTML = "";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+            <img src="${item.img}" alt="${item.name}">
+            <div class="cart-item-info">
+                <span class="cart-item-name">${item.name}</span>
+                <span class="cart-item-price">$${item.price}</span>
+            </div>
+            <button class="remove-item" data-index="${index}">Remove</button>
+        `;
+                cartItems.appendChild(li);
+
+                li.querySelector(".remove-item").addEventListener("click", (e) => {
+                    const idx = e.target.getAttribute("data-index");
+                    cart.splice(idx, 1);
+                    cartCount = cart.length;
+                    saveCart();
+                    updateCart();
+                });
+
+                total += item.price;
+            });
+
+            cartTotal.textContent = total;
+        }
+
+        function saveCart() {
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+
+        // Sorting
+        document.getElementById("sortSelect").addEventListener("change", (e) => {
+            if (e.target.value === "priceLow") {
+                products.sort((a, b) => a.price - b.price);
+            } else if (e.target.value === "priceHigh") {
+                products.sort((a, b) => b.price - a.price);
+            } else {
+                products = [...originalProducts];
+            }
+            currentPage = 1;
+            displayProducts();
+        });
+
+        // Search
+        document.getElementById("searchBox").addEventListener("input", () => {
+            currentPage = 1;
+            displayProducts();
+        });
+
+        // Price filter
+        document.getElementById("priceFilter").addEventListener("input", (e) => {
+            document.getElementById("priceValue").innerText = e.target.value;
+            currentPage = 1;
+            displayProducts();
+        });
+
+        // Cart Modal
+        document.getElementById("cart-btn").addEventListener("click", () => {
+            document.getElementById("cart-modal").style.display = "flex";
+        });
+
+        document.getElementById("close-cart").addEventListener("click", () => {
+            document.getElementById("cart-modal").style.display = "none";
+        });
+
+        // Optional: Checkout button alert
+        document.querySelector(".checkout-btn")?.addEventListener("click", () => {
+            alert("Thank you for your purchase!");
+            cart = [];
+            cartCount = 0;
+            saveCart();
+            updateCart();
+            document.getElementById("cart-modal").style.display = "none";
+        });
+
+        displayProducts();
+
+
+
+        // ---------------------footer-----------------------
+        document.getElementById("subscribe-btn").addEventListener("click", () => {
+            const email = document.getElementById("subscribe-email").value;
+            if (email) {
+                alert(`Thank you for subscribing with ${email}!`);
+                document.getElementById("subscribe-email").value = "";
+            } else {
+                alert("Please enter a valid email.");
+            }
+        });
+
+
+
+    </script>
+</body>
+
+</html>

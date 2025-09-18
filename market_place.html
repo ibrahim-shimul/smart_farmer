@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyMarket v3</title>
+  <style>
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #0f8b8d;
+      color: white;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .search-wrap {
+      position: relative;
+      width: 320px;
+      max-width: 100%;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 8px 36px 8px 12px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    .search-wrap button {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 18px;
+      color: #0f8b8d;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .clickable {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .badge {
+      background: #f39c12;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+
+    /* Layout */
+    .container {
+      display: flex;
+      min-height: calc(100vh - 60px);
+    }
+
+    aside {
+      width: 280px;
+      background: white;
+      padding: 16px;
+      border-right: 2px solid #ddd;
+      overflow-y: auto;
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+    }
+
+    /* Sidebar Sections */
+    .section {
+      margin-bottom: 16px;
+    }
+
+    .section-header {
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+    }
+
+    .section .content {
+      display: none;
+      margin-top: 6px;
+    }
+
+    .arrow {
+      transition: 0.2s;
+    }
+
+    .arrow.down {
+      transform: rotate(90deg);
+    }
+
+    /* Category tree */
+    .cat-group {
+      margin-bottom: 8px;
+    }
+
+    .main-cat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 6px;
+      border-radius: 6px;
+      background: #f7f9fa;
+      cursor: pointer;
+    }
+
+    .main-cat:hover {
+      background: #eef6f7;
+    }
+
+    .subcats {
+      display: none;
+      margin: 6px 0 6px 8px;
+    }
+
+    .subcat {
+      padding: 4px 6px;
+      color: #0f8b8d;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .subcat:hover {
+      background: #e9f6f7;
+      color: #f39c12;
+    }
+
+    .active-subcat {
+      background: #0f8b8d;
+      color: white;
+    }
+
+    /* Filters */
+    .filter input,
+    .filter select {
+      margin-top: 5px;
+      width: 100%;
+      padding: 6px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #eef2f3;
+      font-size: 12px;
+      margin: 2px 4px 0 0;
+    }
+
+    /* Clickable chips */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      background: #eef2f3;
+      font-size: 12px;
+      margin: 2px 6px 0 0;
+      cursor: pointer;
+    }
+
+    .chip .x {
+      font-weight: bold;
+    }
+
+    /* Tabs */
+    .tabs-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      padding: 8px 14px;
+      background: #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: #0f8b8d;
+      color: white;
+    }
+
+    /* Products */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .product-card {
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .product-card h4 {
+      margin: 10px 0 5px;
+      color: #0f8b8d;
+      min-height: 40px;
+    }
+
+    .product-card .price {
+      color: #27ae60;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .product-card .offer {
+      color: #e74c3c;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .product-card button {
+      padding: 6px 10px;
+      margin: 3px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .cart-btn {
+      background: #f39c12;
+    }
+
+    .wishlist-btn {
+      background: #e74c3c;
+    }
+
+    .buy-btn {
+      background: #27ae60;
+    }
+
+    /* Pagination */
+    .pagination {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .pagination button {
+      padding: 6px 10px;
+      margin: 0 3px;
+      border: none;
+      border-radius: 6px;
+      background: #0f8b8d;
+      color: white;
+      cursor: pointer;
+    }
+
+    .pagination button.disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .pagination button.active {
+      background: #f39c12;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #0f8b8d;
+      color: white;
+      margin-top: 20px;
+    }
+
+    /* No products */
+    .no-products {
+      text-align: center;
+      color: #e74c3c;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, bottom 0.25s;
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      bottom: 32px;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 998;
+    }
+
+    .modal {
+      background: #fff;
+      width: min(700px, 92vw);
+      max-height: 80vh;
+      overflow: auto;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .modal header {
+      background: transparent;
+      color: #333;
+      padding: 0;
+      justify-content: space-between;
+    }
+
+    .modal h3 {
+      margin-bottom: 8px;
+    }
+
+    .modal table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .modal th,
+    .modal td {
+      border-bottom: 1px solid #eee;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .modal .empty {
+      text-align: center;
+      color: #999;
+      padding: 18px;
+    }
+
+    .close-btn {
+      padding: 6px 10px;
+      background: #0f8b8d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .remove-btn {
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    /* Occasion indicator (top-right of tabs) */
+    .occasion-area {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .occ-badge {
+      background: #e74c3c;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .occ-muted {
+      background: #eef2f3;
+      color: #666;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+
+    .occ-select {
+      padding: 6px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .clear-occasion-btn {
+      padding: 6px 10px;
+      background: #0f8b8d;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* Govt Price Compare (neutral, number-first) */
+    .govt-box {
+      background: #f8fafb;
+      border: 1px solid #e3e7ea;
+      border-radius: 8px;
+      padding: 8px;
+      margin-top: 8px;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    .govt-box .row {
+      display: flex;
+      justify-content: space-between;
+      margin: 2px 0;
+    }
+
+    .govt-box .muted {
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="brand">🌾 MyMarket</div>
+    <div class="search-wrap">
+      <input id="searchInput" type="text" placeholder="Search products..." />
+      <button id="searchBtn" title="Search">🔎</button>
+    </div>
+    <div class="header-actions">
+      <div id="lang" class="clickable">Lang ▼</div>
+      <div id="wishlistOpen" class="clickable">❤️ Wishlist <span id="wishlistCount" class="badge">0</span></div>
+      <div id="cartOpen" class="clickable">🛒 Cart <span id="cartCount" class="badge">0</span></div>
+      <div class="clickable">👤 Profile</div>
+      <div id="govtPriceOpen" class="clickable">📊 Govt Prices</div>
+
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside>
+      <!-- Categories -->
+      <div class="section" id="categoriesSection">
+        <div class="section-header">Categories <span class="arrow">▶</span></div>
+        <div class="content">
+          <div class="cat-group">
+            <div class="main-cat" data-main="Seeds">🌱 Seeds <span class="arrow">▶</span></div>
+            <div class="subcats">
+              <div class="subcat" data-sub="Rice Seeds">Rice Seeds</div>
+              <div class="subcat" data-sub="Wheat Seeds">Wheat Seeds</div>
+              <div class="subcat" data-sub="Maize Seeds">Maize Seeds</div>
+              <div class="subcat" data-sub="Vegetable Seeds">Vegetable Seeds</div>
+              <div class="subcat" data-sub="Hybrid Seeds">Hybrid Seeds</div>
+            </div>
+          </div>
+          <div class="cat-group">
+            <div class="main-cat" data-main="Crops & Grains">🌾 Crops & Grains <span class="arrow">▶</span></div>
+            <div class="subcats">
+              <div class="subcat" data-sub="Paddy">Paddy</div>
+              <div class="subcat" data-sub="Wheat">Wheat</div>
+              <div class="subcat" data-sub="Maize">Maize</div>
+              <div class="subcat" data-sub="Jute">Jute</div>
+            </div>
+          </div>
+          <div class="cat-group">
+            <div class="main-cat" data-main="Fruits & Vegetables">🍎 Fruits & Vegetables <span class="arrow">▶</span>
+            </div>
+            <div class="subcats">
+              <div class="subcat" data-sub="Mango">Mango</div>
+              <div class="subcat" data-sub="Banana">Banana</div>
+              <div class="subcat" data-sub="Tomato">Tomato</div>
+              <div class="subcat" data-sub="Potato">Potato</div>
+              <div class="subcat" data-sub="Onion">Onion</div>
+            </div>
+          </div>
+          <div class="cat-group">
+            <div class="main-cat" data-main="Fertilizers & Pesticides">🌱 Fertilizers & Pesticides <span
+                class="arrow">▶</span></div>
+            <div class="subcats">
+              <div class="subcat" data-sub="Organic Fertilizers">Organic Fertilizers</div>
+              <div class="subcat" data-sub="Chemical Fertilizers">Chemical Fertilizers</div>
+              <div class="subcat" data-sub="Insecticides">Insecticides</div>
+              <div class="subcat" data-sub="Herbicides">Herbicides</div>
+            </div>
+          </div>
+          <div class="cat-group">
+            <div class="main-cat" data-main="Machinery & Tools">🚜 Machinery & Tools <span class="arrow">▶</span></div>
+            <div class="subcats">
+              <div class="subcat" data-sub="Tractors">Tractors</div>
+              <div class="subcat" data-sub="Harvesters">Harvesters</div>
+              <div class="subcat" data-sub="Power Tillers">Power Tillers</div>
+              <div class="subcat" data-sub="Irrigation Pumps">Irrigation Pumps</div>
+              <div class="subcat" data-sub="Sprayers">Sprayers</div>
+            </div>
+          </div>
+          <div class="cat-group">
+            <div class="main-cat" data-main="Livestock & Dairy">🐄 Livestock & Dairy <span class="arrow">▶</span></div>
+            <div class="subcats">
+              <div class="subcat" data-sub="Cows">Cows</div>
+              <div class="subcat" data-sub="Goats">Goats</div>
+              <div class="subcat" data-sub="Dairy Products">Dairy Products</div>
+              <div class="subcat" data-sub="Animal Feed">Animal Feed</div>
+            </div>
+          </div>
+          <div class="cat-group">
+            <div class="main-cat" data-main="Poultry & Eggs">🐓 Poultry & Eggs <span class="arrow">▶</span></div>
+            <div class="subcats">
+              <div class="subcat" data-sub="Broiler Chicken">Broiler Chicken</div>
+              <div class="subcat" data-sub="Layer Chicken">Layer Chicken</div>
+              <div class="subcat" data-sub="Ducks">Ducks</div>
+              <div class="subcat" data-sub="Eggs">Eggs</div>
+            </div>
+          </div>
+          <div class="cat-group">
+            <div class="main-cat" data-main="Fish & Aquaculture">🐟 Fish & Aquaculture <span class="arrow">▶</span>
+            </div>
+            <div class="subcats">
+              <div class="subcat" data-sub="Carp">Carp</div>
+              <div class="subcat" data-sub="Tilapia">Tilapia</div>
+              <div class="subcat" data-sub="Catfish">Catfish</div>
+              <div class="subcat" data-sub="Fish Feed">Fish Feed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="section">
+        <div class="section-header">Filters <span class="arrow">▶</span></div>
+        <div class="content filter">
+          <label>Price Range:</label>
+          <input type="number" id="minPrice" placeholder="Min Price" />
+          <input type="number" id="maxPrice" placeholder="Max Price" />
+          <div><span class="pill">৳ Filter by price</span></div>
+          <label style="margin-top:6px; display:block;">Division:</label>
+          <select id="division">
+            <option value="">Select Division</option>
+            <option>Dhaka</option>
+            <option>Chittagong</option>
+            <option>Khulna</option>
+            <option>Rajshahi</option>
+            <option>Barishal</option>
+            <option>Sylhet</option>
+            <option>Rangpur</option>
+            <option>Mymensingh</option>
+          </select>
+          <label>District:</label>
+          <select id="district">
+            <option value="">Select District</option>
+          </select>
+          <label>City:</label>
+          <select id="city">
+            <option value="">Select City</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Offers -->
+      <div class="section">
+        <div class="section-header">Offers <span class="arrow">▶</span></div>
+        <div class="content">
+          <div class="subcat" id="discountedFilter">Discounted Items</div>
+        </div>
+      </div>
+
+      <!-- Recommended -->
+      <div class="section">
+        <div class="section-header">Recommended <span class="arrow">▶</span></div>
+        <div class="content">
+          <div class="subcat" id="recommendedFilter">Suggested Items</div>
+        </div>
+      </div>
+
+      <!-- NEW: Occasions (LEFT SIDEBAR) -->
+      <div class="section">
+        <div class="section-header">Occasions <span class="arrow">▶</span></div>
+        <div class="content" id="occSidebar">
+          <div id="occLiveList" style="margin-bottom:8px;"></div>
+          <label style="display:block; margin:6px 0 4px;">Select Occasion:</label>
+          <select id="occSelectSide" class="occ-select" style="width:100%;"></select>
+          <button id="occClearSide" class="clear-occasion-btn" style="margin-top:8px; width:100%;">Clear
+            Occasion</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Tabs + Occasion indicator row -->
+      <div class="tabs-row">
+        <div class="tabs">
+          <div class="tab active" data-tab="all">All Products</div>
+          <div class="tab" data-tab="offer">Offer</div>
+          <div class="tab" data-tab="new">New Arrival</div>
+        </div>
+        <div id="occasionArea" class="occasion-area"></div>
+      </div>
+
+      <div id="activeFilters" style="margin-bottom:8px;"></div>
+
+      <div class="products" id="productGrid"></div>
+      <div class="no-products" id="noProducts" style="display:none;">No products available for this selection.</div>
+      <div class="pagination" id="pagination"></div>
+    </main>
+  </div>
+
+  <footer>© MyMarket 2025 | About | Support | Contact</footer>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Modal (Cart/Wishlist) -->
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <header>
+        <h3 id="modalTitle">Items</h3>
+        <button class="close-btn" id="modalClose">Close</button>
+      </header>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+
+
+  <script>
+    // -------- Sample Data --------
+    const products = [
+      { id: 1, name: "Rice Seeds A", mainCategory: "Seeds", subcategory: "Rice Seeds", price: 200, offer: "10%", new: true, recommended: true, location: { division: "Dhaka", district: "Dhaka", city: "Dhanmondi" }, img: "https://via.placeholder.com/220x150?text=Rice+A", occasions: ["summer-sale"] },
+      { id: 2, name: "Wheat Seeds B", mainCategory: "Seeds", subcategory: "Wheat Seeds", price: 250, offer: "5%", new: false, recommended: false, location: { division: "Rajshahi", district: "Rajshahi", city: "Rajshahi" }, img: "https://via.placeholder.com/220x150?text=Wheat+B" },
+      { id: 3, name: "Maize Seeds C", mainCategory: "Seeds", subcategory: "Maize Seeds", price: 300, offer: "15%", new: true, recommended: false, location: { division: "Rangpur", district: "Rangpur", city: "Rangpur" }, img: "https://via.placeholder.com/220x150?text=Maize+C" },
+      { id: 4, name: "Mango Premium", mainCategory: "Fruits & Vegetables", subcategory: "Mango", price: 500, offer: "20%", new: false, recommended: true, location: { division: "Khulna", district: "Jessore", city: "Jessore" }, img: "https://via.placeholder.com/220x150?text=Mango", occasions: ["summer-sale"] },
+      { id: 5, name: "Tomato Organic", mainCategory: "Fruits & Vegetables", subcategory: "Tomato", price: 150, offer: "0%", new: true, recommended: false, location: { division: "Chittagong", district: "Chittagong", city: "Chittagong" }, img: "https://via.placeholder.com/220x150?text=Tomato" },
+      { id: 6, name: "Tractor X", mainCategory: "Machinery & Tools", subcategory: "Tractors", price: 20000, offer: "5%", new: false, recommended: true, location: { division: "Barishal", district: "Barishal", city: "Barishal" }, img: "https://via.placeholder.com/220x150?text=Tractor+X", occasions: ["summer-sale"] },
+      { id: 7, name: "Layer Chicken", mainCategory: "Poultry & Eggs", subcategory: "Layer Chicken", price: 800, offer: "10%", new: false, recommended: false, location: { division: "Dhaka", district: "Dhaka", city: "Savar" }, img: "https://via.placeholder.com/220x150?text=Layer+Chicken" },
+      { id: 8, name: "Tilapia Fish", mainCategory: "Fish & Aquaculture", subcategory: "Tilapia", price: 400, offer: "5%", new: false, recommended: true, location: { division: "Sylhet", district: "Sylhet", city: "Sylhet" }, img: "https://via.placeholder.com/220x150?text=Tilapia" },
+      { id: 9, name: "Potato Fresh", mainCategory: "Fruits & Vegetables", subcategory: "Potato", price: 90, offer: "0%", new: true, recommended: true, location: { division: "Mymensingh", district: "Mymensingh", city: "Mymensingh" }, img: "https://via.placeholder.com/220x150?text=Potato", occasions: ["summer-sale"] },
+      { id: 10, name: "Onion Red", mainCategory: "Fruits & Vegetables", subcategory: "Onion", price: 120, offer: "8%", new: false, recommended: false, location: { division: "Dhaka", district: "Dhaka", city: "Dhaka" }, img: "https://via.placeholder.com/220x150?text=Onion" },
+      { id: 11, name: "Organic Fert A", mainCategory: "Fertilizers & Pesticides", subcategory: "Organic Fertilizers", price: 700, offer: "12%", new: true, recommended: false, location: { division: "Khulna", district: "Khulna", city: "Khulna" }, img: "https://via.placeholder.com/220x150?text=Organic+Fert" },
+      { id: 12, name: "Insecticide P", mainCategory: "Fertilizers & Pesticides", subcategory: "Insecticides", price: 1100, offer: "0%", new: false, recommended: false, location: { division: "Chittagong", district: "Cox's Bazar", city: "Cox's Bazar" }, img: "https://via.placeholder.com/220x150?text=Insecticide" },
+      { id: 13, name: "Harvester H1", mainCategory: "Machinery & Tools", subcategory: "Harvesters", price: 120000, offer: "3%", new: true, recommended: true, location: { division: "Rajshahi", district: "Rajshahi", city: "Rajshahi" }, img: "https://via.placeholder.com/220x150?text=Harvester" },
+      { id: 14, name: "Dairy Milk", mainCategory: "Livestock & Dairy", subcategory: "Dairy Products", price: 75, offer: "0%", new: true, recommended: false, location: { division: "Dhaka", district: "Dhaka", city: "Dhaka" }, img: "https://via.placeholder.com/220x150?text=Dairy+Milk" },
+      { id: 15, name: "Animal Feed Plus", mainCategory: "Livestock & Dairy", subcategory: "Animal Feed", price: 950, offer: "6%", new: false, recommended: true, location: { division: "Rangpur", district: "Rangpur", city: "Rangpur" }, img: "https://via.placeholder.com/220x150?text=Animal+Feed" },
+      { id: 16, name: "Fish Feed Gold", mainCategory: "Fish & Aquaculture", subcategory: "Fish Feed", price: 650, offer: "7%", new: false, recommended: false, location: { division: "Sylhet", district: "Sylhet", city: "Sylhet" }, img: "https://via.placeholder.com/220x150?text=Fish+Feed" }
+    ];
+
+    // --- Occasions data (frontend demo) ---
+    const occasions = [
+      { id: 1, key: 'eid-ul-adha', name: 'Eid-ul-Adha', start: '2025-06-01', end: '2025-06-25' },
+      { id: 2, key: 'boishakh-1432', name: 'Pohela Boishakh', start: '2025-04-08', end: '2025-04-17' },
+      { id: 3, key: 'summer-sale', name: 'Summer Sale', start: '2025-08-15', end: '2025-09-05' } // demo live
+    ];
+
+    // ---- Govt. Price Index (frontend demo) ----
+    // Mapping by subcategory so your demo data matches easily.
+    // unit/date কেবল দেখানোর জন্য; চাইলে region-wise extend করতে পারবেন।
+    const govtPriceIndex = {
+      bySubcategory: {
+        'Potato': { unit: 'kg', price: 35, effective: '2025-08-20' },
+        'Onion': { unit: 'kg', price: 60, effective: '2025-08-20' },
+        'Tomato': { unit: 'kg', price: 55, effective: '2025-08-20' },
+        'Mango': { unit: 'kg', price: 120, effective: '2025-08-15' },
+        'Tilapia': { unit: 'kg', price: 280, effective: '2025-08-18' },
+        'Layer Chicken': { unit: 'kg', price: 300, effective: '2025-08-18' }, // demo
+        'Dairy Products': { unit: 'liter', price: 70, effective: '2025-08-17' },
+        'Paddy': { unit: 'kg', price: 28, effective: '2025-08-16' }
+        // চাইলে আরও যোগ করুন...
+      }
+    };
+
+    function getGovtInfo(product) {
+      // subcategory ভিত্তিক ম্যাচ—আপনার demo data-র সাথে ভালোভাবে মেলে
+      return govtPriceIndex.bySubcategory[product.subcategory] || null;
+    }
+
+    function getComparison(product) {
+      const info = getGovtInfo(product);
+      if (!info) return null;
+      const govt = info.price;
+      const seller = product.price;
+      const diff = seller - govt;
+      const pct = govt > 0 ? ((diff / govt) * 100) : 0;
+      return {
+        govtPrice: govt,
+        sellerPrice: seller,
+        unit: info.unit,
+        effective: info.effective,
+        diff: diff,
+        pct: Number.isFinite(pct) ? +pct.toFixed(1) : 0
+      };
+    }
+
+    function fmtTk(n) {
+      // সংখ্যাকে সুন্দরভাবে দেখানোর জন্য (কোনও সিম্বল ডাবল না হয় সেদিকে খেয়াল)
+      return String(Math.round(n));
+    }
+
+
+    // ---- State ----
+    let currentPage = 1;
+    const productsPerPage = 8;
+    let currentTab = 'all';
+    let searchQuery = '';
+    let selectedSubcategory = '';
+    let selectedMainCategory = '';
+    let discountedOnly = false;
+    let recommendedOnly = false;
+    let priceMin = null, priceMax = null;
+    let selectedDivision = '', selectedDistrict = '', selectedCity = '';
+    let selectedOccasionKey = '';
+
+    const productGrid = document.getElementById('productGrid');
+    const pagination = document.getElementById('pagination');
+    const noProducts = document.getElementById('noProducts');
+    const toast = document.getElementById('toast');
+    const wishlistCount = document.getElementById('wishlistCount');
+    const cartCount = document.getElementById('cartCount');
+    const activeFilters = document.getElementById('activeFilters');
+
+    // Cart & Wishlist
+    const cart = [];
+    const wishlist = [];
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1400);
+    }
+
+    function addToCart(product) {
+      const existing = cart.find(i => i.id === product.id);
+      if (existing) { existing.qty += 1; } else { cart.push({ id: product.id, name: product.name, price: product.price, qty: 1 }); }
+      cartCount.textContent = cart.reduce((s, i) => s + i.qty, 0);
+      showToast('✅ Added to Cart');
+    }
+
+    function addToWishlist(product) {
+      if (!wishlist.find(i => i.id === product.id)) {
+        wishlist.push({ id: product.id, name: product.name });
+        wishlistCount.textContent = wishlist.length;
+      }
+      showToast('💖 Added to Wishlist');
+    }
+
+    // Modal helpers
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const modalClose = document.getElementById('modalClose');
+
+    modalClose.addEventListener('click', () => modalBackdrop.style.display = 'none');
+    modalBackdrop.addEventListener('click', (e) => { if (e.target === modalBackdrop) modalBackdrop.style.display = 'none'; });
+
+    document.getElementById('cartOpen').addEventListener('click', () => renderCartModal());
+    document.getElementById('wishlistOpen').addEventListener('click', () => renderWishlistModal());
+
+    function renderCartModal() {
+      modalTitle.textContent = 'Your Cart';
+      if (cart.length === 0) { modalBody.innerHTML = '<div class="empty">Your cart is empty.</div>'; }
+      else {
+        let rows = cart.map((item, idx) => `
+      <tr>
+        <td>${item.name}</td>
+        <td>৳ ${item.price}</td>
+        <td>
+          <button class="remove-btn" data-action="dec" data-idx="${idx}">−</button>
+          <span style="padding:0 8px;">${item.qty}</span>
+          <button class="remove-btn" data-action="inc" data-idx="${idx}">+</button>
+        </td>
+        <td>৳ ${item.price * item.qty}</td>
+        <td><button class="remove-btn" data-action="remove" data-idx="${idx}">Remove</button></td>
+      </tr>`).join('');
+        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        modalBody.innerHTML = `
+      <table>
+        <thead><tr><th>Product</th><th>Price</th><th>Qty</th><th>Subtotal</th><th></th></tr></thead>
+        <tbody>${rows}</tbody>
+        <tfoot><tr><th colspan="3" style="text-align:right;">Total:</th><th colspan="2">৳ ${total}</th></tr></tfoot>
+      </table>`;
+
+        modalBody.querySelectorAll('.remove-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = parseInt(btn.getAttribute('data-idx'));
+            const action = btn.getAttribute('data-action');
+            if (action === 'remove') { cart.splice(idx, 1); }
+            if (action === 'inc') { cart[idx].qty += 1; }
+            if (action === 'dec') { cart[idx].qty -= 1; if (cart[idx].qty <= 0) cart.splice(idx, 1); }
+            cartCount.textContent = cart.reduce((s, i) => s + i.qty, 0);
+            renderCartModal();
+          });
+        });
+      }
+      modalBackdrop.style.display = 'flex';
+    }
+
+    function renderWishlistModal() {
+      modalTitle.textContent = 'Your Wishlist';
+      if (wishlist.length === 0) { modalBody.innerHTML = '<div class="empty">Your wishlist is empty.</div>'; }
+      else {
+        const rows = wishlist.map((item, idx) => `
+      <tr>
+        <td>${item.name}</td>
+        <td><button class="remove-btn" data-idx="${idx}">Remove</button></td>
+      </tr>`).join('');
+        modalBody.innerHTML = `
+      <table>
+        <thead><tr><th>Product</th><th></th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+        modalBody.querySelectorAll('.remove-btn').forEach(btn => {
+          btn.addEventListener('click', () => { const idx = parseInt(btn.getAttribute('data-idx')); wishlist.splice(idx, 1); wishlistCount.textContent = wishlist.length; renderWishlistModal(); });
+        });
+      }
+      modalBackdrop.style.display = 'flex';
+    }
+
+
+    // ---- Govt Price List Modal ----
+    function renderGovtPriceListModal() {
+      modalTitle.textContent = 'Govt. Price List (Demo)';
+      const rows = Object.entries(govtPriceIndex.bySubcategory).map(([name, v]) => `
+    <tr>
+      <td>${name}</td>
+      <td>৳ ${fmtTk(v.price)} / ${v.unit}</td>
+      <td>${v.effective}</td>
+    </tr>
+  `).join('');
+      modalBody.innerHTML = `
+    <table>
+      <thead><tr><th>Item</th><th>Govt. Price</th><th>Effective</th></tr></thead>
+      <tbody>${rows || '<tr><td colspan="3" class="empty">No data</td></tr>'}</tbody>
+    </table>`;
+      modalBackdrop.style.display = 'flex';
+    }
+
+    document.getElementById('govtPriceOpen')?.addEventListener('click', renderGovtPriceListModal);
+
+
+
+    // -------- Occasion helpers & UI --------
+    function isLive(o, now = new Date()) {
+      const s = new Date(o.start), e = new Date(o.end);
+      return s <= now && now <= e;
+    }
+    function getLiveOccasions() {
+      const now = new Date();
+      return occasions.filter(o => isLive(o, now));
+    }
+    function getOccasionName(key) {
+      const o = occasions.find(x => x.key === key);
+      return o ? o.name : key;
+    }
+
+    // Top-right beside tabs
+    function renderOccasionArea() {
+      const area = document.getElementById('occasionArea');
+      const live = getLiveOccasions();
+      if (live.length === 0) {
+        area.innerHTML = `<span class="occ-muted">No live occasion</span>`;
+        return;
+      }
+      if (live.length === 1) {
+        const o = live[0];
+        area.innerHTML = `<button id="occBtn" class="occ-badge">🎉 ${o.name} is Live</button>`;
+        document.getElementById('occBtn').addEventListener('click', () => {
+          selectedOccasionKey = o.key; currentPage = 1; displayProducts(); syncOccasionUI();
+          showToast(`🎯 Filter: ${o.name}`);
+        });
+      } else {
+        area.innerHTML = `
+      <label style="font-size:14px;">🎉 Live Occasion:</label>
+      <select id="occSelect" class="occ-select">
+        <option value="">All</option>
+        ${live.map(o => `<option value="${o.key}">${o.name}</option>`).join('')}
+      </select>`;
+        document.getElementById('occSelect').addEventListener('change', (e) => {
+          selectedOccasionKey = e.target.value || ''; currentPage = 1; displayProducts(); syncOccasionUI();
+        });
+      }
+    }
+
+    // LEFT sidebar occasion section
+    function renderOccasionSidebar() {
+      const live = getLiveOccasions();
+      const liveList = document.getElementById('occLiveList');
+      const select = document.getElementById('occSelectSide');
+
+      // Live list (clickable)
+      if (live.length === 0) {
+        liveList.innerHTML = `<div class="occ-muted">No live occasion</div>`;
+      } else {
+        liveList.innerHTML = `<div style="font-weight:bold; margin-bottom:6px;">Live now:</div>` +
+          live.map(o => `<div class="subcat occ-li" data-occ="${o.key}">🎉 ${o.name}</div>`).join('');
+        liveList.querySelectorAll('.occ-li').forEach(el => {
+          el.addEventListener('click', () => {
+            selectedOccasionKey = el.dataset.occ; currentPage = 1; displayProducts(); syncOccasionUI(); showToast(`🎯 Filter: ${getOccasionName(selectedOccasionKey)}`);
+          });
+        });
+      }
+
+      // Full select (all occasions, live or not)
+      select.innerHTML = `<option value="">-- All occasions --</option>` +
+        occasions.map(o => `<option value="${o.key}">${o.name}</option>`).join('');
+
+      document.getElementById('occClearSide').onclick = () => {
+        selectedOccasionKey = ''; displayProducts(); syncOccasionUI();
+      };
+    }
+
+    // keep both top & side in sync with current selection
+    function syncOccasionUI() {
+      // sidebar select reflects current
+      const sideSel = document.getElementById('occSelectSide');
+      if (sideSel) sideSel.value = selectedOccasionKey || '';
+      // highlight in live list
+      document.querySelectorAll('#occLiveList .occ-li').forEach(el => {
+        el.classList.toggle('active-subcat', el.dataset.occ === selectedOccasionKey && !!selectedOccasionKey);
+      });
+    }
+
+    // -------- Filters Pipeline --------
+    function applyAllFilters() {
+      let list = [...products];
+
+      // Category/subcategory
+      if (selectedSubcategory) { list = list.filter(p => p.subcategory === selectedSubcategory); }
+      else if (selectedMainCategory) { list = list.filter(p => p.mainCategory === selectedMainCategory); }
+
+      // Location
+      if (selectedDivision) { list = list.filter(p => p.location.division === selectedDivision); }
+      if (selectedDistrict) { list = list.filter(p => p.location.district === selectedDistrict); }
+      if (selectedCity) { list = list.filter(p => p.location.city === selectedCity); }
+
+      // Price
+      if (priceMin != null) { list = list.filter(p => p.price >= priceMin); }
+      if (priceMax != null) { list = list.filter(p => p.price <= priceMax); }
+
+      // Search
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        list = list.filter(p => p.name.toLowerCase().includes(q));
+      }
+
+      // Occasion
+      if (selectedOccasionKey) {
+        list = list.filter(p => Array.isArray(p.occasions) && p.occasions.includes(selectedOccasionKey));
+      }
+
+      // Offers & Recommended toggles
+      if (discountedOnly) { list = list.filter(p => parseFloat(p.offer) > 0); }
+      if (recommendedOnly) { list = list.filter(p => p.recommended); }
+
+      // Tabs (global now)
+      if (currentTab === 'offer') { list = list.filter(p => parseFloat(p.offer) > 0); }
+      if (currentTab === 'new') { list = list.filter(p => p.new); }
+
+      return list;
+    }
+
+    function updateActiveFilterChips() {
+      const chips = [];
+      if (selectedMainCategory) chips.push(`<button class="chip" data-clear="main">${selectedMainCategory} <span class="x">✕</span></button>`);
+      if (selectedSubcategory) chips.push(`<button class="chip" data-clear="sub">${selectedSubcategory} <span class="x">✕</span></button>`);
+      if (searchQuery) chips.push(`<button class="chip" data-clear="search">Search: "${searchQuery}" <span class="x">✕</span></button>`);
+      if (priceMin != null || priceMax != null) chips.push(`<button class="chip" data-clear="price">Price: ${priceMin ?? '0'} - ${priceMax ?? '∞'} <span class="x">✕</span></button>`);
+      if (selectedDivision) chips.push(`<button class="chip" data-clear="division">${selectedDivision} <span class="x">✕</span></button>`);
+      if (selectedDistrict) chips.push(`<button class="chip" data-clear="district">${selectedDistrict} <span class="x">✕</span></button>`);
+      if (selectedCity) chips.push(`<button class="chip" data-clear="city">${selectedCity} <span class="x">✕</span></button>`);
+      if (discountedOnly) chips.push(`<button class="chip" data-clear="discounted">Discounted <span class="x">✕</span></button>`);
+      if (recommendedOnly) chips.push(`<button class="chip" data-clear="recommended">Recommended <span class="x">✕</span></button>`);
+      if (currentTab !== 'all') chips.push(`<button class="chip" data-clear="tab">Tab: ${currentTab} <span class="x">✕</span></button>`);
+      if (selectedOccasionKey) chips.push(`<button class="chip" data-clear="occasion">Occasion: ${getOccasionName(selectedOccasionKey)} <span class="x">✕</span></button>`);
+
+      // Clear All button if any filters active
+      const anyActive = chips.length > 0;
+      const clearAllBtn = anyActive ? `<button id="clearAllFilters" class="clear-occasion-btn" style="margin-left:6px;">Clear All</button>` : '';
+
+      activeFilters.innerHTML = chips.join('') + clearAllBtn;
+
+      // chip removal
+      activeFilters.querySelectorAll('.chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const type = btn.getAttribute('data-clear');
+          clearFilter(type);
+        });
+      });
+      const clearAll = document.getElementById('clearAllFilters');
+      if (clearAll) { clearAll.addEventListener('click', () => { resetFilters(); currentTab = 'all'; setActiveTabUI(); currentPage = 1; displayProducts(); renderOccasionArea(); syncOccasionUI(); }); }
+    }
+
+    function clearFilter(type) {
+      if (type === 'main') { selectedMainCategory = ''; document.querySelectorAll('.subcat').forEach(n => n.classList.remove('active-subcat')); }
+      if (type === 'sub') { selectedSubcategory = ''; document.querySelectorAll('.subcat').forEach(n => n.classList.remove('active-subcat')); }
+      if (type === 'search') { searchQuery = ''; document.getElementById('searchInput').value = ''; }
+      if (type === 'price') { priceMin = null; priceMax = null; document.getElementById('minPrice').value = ''; document.getElementById('maxPrice').value = ''; }
+      if (type === 'division') { selectedDivision = ''; document.getElementById('division').value = ''; document.getElementById('district').innerHTML = '<option value="">Select District</option>'; selectedDistrict = ''; document.getElementById('city').innerHTML = '<option value="">Select City</option>'; selectedCity = ''; }
+      if (type === 'district') { selectedDistrict = ''; document.getElementById('district').value = ''; document.getElementById('city').innerHTML = '<option value="">Select City</option>'; selectedCity = ''; }
+      if (type === 'city') { selectedCity = ''; document.getElementById('city').value = ''; }
+      if (type === 'discounted') { discountedOnly = false; }
+      if (type === 'recommended') { recommendedOnly = false; }
+      if (type === 'occasion') { selectedOccasionKey = ''; syncOccasionUI(); }
+      if (type === 'tab') { currentTab = 'all'; setActiveTabUI(); }
+      currentPage = 1; displayProducts(); renderOccasionArea();
+    }
+
+    function displayProducts() {
+      const list = applyAllFilters();
+      updateActiveFilterChips();
+
+      const total = list.length;
+      if (total === 0) {
+        productGrid.innerHTML = '';
+        if (selectedOccasionKey) {
+          noProducts.innerHTML = `No products available for this selection.
+        <div style="margin-top:10px; font-size:14px; color:#555;">
+          Occasion "<b>${getOccasionName(selectedOccasionKey)}</b>" এ এই মুহূর্তে স্টক নেই।
+        </div>
+        <div style="margin-top:10px;">
+          <button id="clearOccasionBtn" class="clear-occasion-btn">Clear Occasion</button>
+        </div>`;
+          setTimeout(() => {
+            const btn = document.getElementById('clearOccasionBtn');
+            if (btn) { btn.addEventListener('click', () => { selectedOccasionKey = ''; currentPage = 1; displayProducts(); renderOccasionArea(); syncOccasionUI(); }); }
+          }, 0);
+        } else {
+          noProducts.textContent = 'No products available for this selection.';
+        }
+        noProducts.style.display = 'block';
+        pagination.style.display = 'none';
+        return;
+      } else {
+        noProducts.style.display = 'none';
+        pagination.style.display = 'block';
+      }
+
+      const totalPages = Math.ceil(total / productsPerPage);
+      if (currentPage > totalPages) currentPage = 1;
+      const start = (currentPage - 1) * productsPerPage;
+      const end = start + productsPerPage;
+      const pageItems = list.slice(start, end);
+
+      productGrid.innerHTML = '';
+      pageItems.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+  <img src="${p.img}" alt="${p.name}" />
+  <h4>${p.name}</h4>
+  <div style="font-size:12px; color:#777; margin-bottom:4px;">${p.mainCategory} • ${p.subcategory}</div>
+  <div class="price">৳ ${p.price}</div>
+  <div class="offer">${p.offer} Off</div>
+  ${(() => {
+            const comp = getComparison(p);
+            if (!comp) return ''; // govt info না থাকলে ব্লক দেখাবো না
+            const signAmt = comp.diff > 0 ? '+' : (comp.diff < 0 ? '−' : '');
+            const signPct = comp.pct > 0 ? '+' : (comp.pct < 0 ? '' : '');
+            return `
+        <div class="govt-box">
+          <div class="row"><span>Govt. Price</span><strong>৳ ${fmtTk(comp.govtPrice)} / ${comp.unit}</strong></div>
+          <div class="row"><span>Seller Price</span><strong>৳ ${fmtTk(comp.sellerPrice)} / ${comp.unit}</strong></div>
+          <div class="row"><span>Difference</span><strong>${signAmt}${fmtTk(Math.abs(comp.diff))} (${signPct}${comp.pct}%)</strong></div>
+          <div class="row muted"><span>Effective</span><span>${comp.effective}</span></div>
+        </div>
+      `;
+          })()}
+  <button class="cart-btn">Add to Cart 🛒</button>
+  <button class="wishlist-btn">Wishlist ❤️</button>
+  <button class="buy-btn">Buy Now 🛍️</button>
+`;
+
+        card.querySelector('.cart-btn').addEventListener('click', () => addToCart(p));
+        card.querySelector('.wishlist-btn').addEventListener('click', () => addToWishlist(p));
+        card.querySelector('.buy-btn').addEventListener('click', () => { addToCart(p); showToast('🛍️ Proceed to checkout (demo)'); });
+        productGrid.appendChild(card);
+      });
+
+      renderPagination(totalPages);
+    }
+
+    function renderPagination(totalPages) {
+      pagination.innerHTML = '';
+
+      const prev = document.createElement('button');
+      prev.textContent = 'Prev';
+      prev.disabled = currentPage === 1;
+      if (prev.disabled) prev.classList.add('disabled');
+      prev.addEventListener('click', () => { if (currentPage > 1) { currentPage--; displayProducts(); } });
+      pagination.appendChild(prev);
+
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        if (i === currentPage) btn.classList.add('active');
+        btn.addEventListener('click', () => { currentPage = i; displayProducts(); });
+        pagination.appendChild(btn);
+      }
+
+      const next = document.createElement('button');
+      next.textContent = 'Next';
+      next.disabled = currentPage === totalPages;
+      if (next.disabled) next.classList.add('disabled');
+      next.addEventListener('click', () => { if (currentPage < totalPages) { currentPage++; displayProducts(); } });
+      pagination.appendChild(next);
+    }
+
+    // ----- Sidebar: Section toggle -----
+    document.querySelectorAll('.section-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const content = header.nextElementSibling;
+        const arrow = header.querySelector('.arrow');
+        const isOpen = content.style.display === 'block';
+        content.style.display = isOpen ? 'none' : 'block';
+        arrow.classList.toggle('down', !isOpen);
+      });
+    });
+
+    // ----- Categories expand / select -----
+    Array.from(document.querySelectorAll('.cat-group')).forEach(group => {
+      const main = group.querySelector('.main-cat');
+      const sub = group.querySelector('.subcats');
+      const arr = main.querySelector('.arrow');
+      main.addEventListener('click', () => {
+        const open = sub.style.display === 'block';
+        sub.style.display = open ? 'none' : 'block';
+        arr.classList.toggle('down', !open);
+      });
+
+      sub.querySelectorAll('.subcat').forEach(s => {
+        s.addEventListener('click', (e) => {
+          e.stopPropagation();
+          document.querySelectorAll('.subcat').forEach(n => n.classList.remove('active-subcat'));
+          s.classList.add('active-subcat');
+          selectedMainCategory = main.dataset.main;
+          selectedSubcategory = s.dataset.sub;
+          currentTab = 'all'; setActiveTabUI();
+          currentPage = 1;
+          displayProducts();
+        });
+      });
+    });
+
+    // ---- Search ----
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    function triggerSearch() { searchQuery = searchInput.value.trim(); currentTab = 'all'; setActiveTabUI(); currentPage = 1; displayProducts(); }
+    searchBtn.addEventListener('click', triggerSearch);
+    searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') triggerSearch(); });
+
+    // ---- Price filter ----
+    const minPriceEl = document.getElementById('minPrice');
+    const maxPriceEl = document.getElementById('maxPrice');
+    function applyPrice() {
+      const min = parseFloat(minPriceEl.value);
+      const max = parseFloat(maxPriceEl.value);
+      priceMin = isNaN(min) ? null : min;
+      priceMax = isNaN(max) ? null : max;
+      currentTab = 'all'; setActiveTabUI();
+      currentPage = 1; displayProducts();
+    }
+    minPriceEl.addEventListener('input', applyPrice);
+    maxPriceEl.addEventListener('input', applyPrice);
+
+    // ---- Offers & Recommended toggles (sidebar) ----
+    document.getElementById('discountedFilter').addEventListener('click', () => { discountedOnly = !discountedOnly; currentTab = 'all'; setActiveTabUI(); currentPage = 1; displayProducts(); });
+    document.getElementById('recommendedFilter').addEventListener('click', () => { recommendedOnly = !recommendedOnly; currentTab = 'all'; setActiveTabUI(); currentPage = 1; displayProducts(); });
+
+    // ---- Tabs (GLOBAL behavior: resets other filters) ----
+    function setActiveTabUI() {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`.tab[data-tab="${currentTab}"]`)?.classList.add('active');
+    }
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        currentTab = tab.dataset.tab;
+        setActiveTabUI();
+        // Reset all other filters so tabs act on full catalog
+        resetFilters(); // clears everything else
+        currentPage = 1;
+        displayProducts();
+        renderOccasionArea();
+        syncOccasionUI();
+      });
+    });
+
+    // ---- Location dropdowns (Bangladesh – demo mapping) ----
+    const divisionEl = document.getElementById('division');
+    const districtEl = document.getElementById('district');
+    const cityEl = document.getElementById('city');
+
+    const districtsMap = {
+      'Dhaka': ['Dhaka', 'Savar', 'Dhanmondi'],
+      'Chittagong': ['Chittagong', "Cox's Bazar"],
+      'Khulna': ['Khulna', 'Jessore'],
+      'Rajshahi': ['Rajshahi'],
+      'Barishal': ['Barishal'],
+      'Sylhet': ['Sylhet'],
+      'Rangpur': ['Rangpur'],
+      'Mymensingh': ['Mymensingh']
+    };
+
+    divisionEl.addEventListener('change', () => {
+      selectedDivision = divisionEl.value || '';
+      selectedDistrict = ''; selectedCity = '';
+      districtEl.innerHTML = '<option value="">Select District</option>';
+      (districtsMap[selectedDivision] || []).forEach(d => {
+        const opt = document.createElement('option'); opt.value = d; opt.textContent = d; districtEl.appendChild(opt);
+      });
+      cityEl.innerHTML = '<option value="">Select City</option>';
+      currentTab = 'all'; setActiveTabUI();
+      currentPage = 1; displayProducts();
+    });
+
+    districtEl.addEventListener('change', () => {
+      selectedDistrict = districtEl.value || '';
+      selectedCity = '';
+      cityEl.innerHTML = '<option value="">Select City</option>';
+      if (selectedDistrict) { const opt = document.createElement('option'); opt.value = selectedDistrict; opt.textContent = selectedDistrict; cityEl.appendChild(opt); }
+      currentTab = 'all'; setActiveTabUI();
+      currentPage = 1; displayProducts();
+    });
+
+    cityEl.addEventListener('change', () => { selectedCity = cityEl.value || ''; currentTab = 'all'; setActiveTabUI(); currentPage = 1; displayProducts(); });
+
+    // ---- Reset helpers ----
+    function resetFilters() {
+      // Clear all non-tab filters
+      selectedMainCategory = ''; selectedSubcategory = '';
+      discountedOnly = false; recommendedOnly = false;
+      priceMin = null; priceMax = null;
+      selectedDivision = ''; selectedDistrict = ''; selectedCity = '';
+      selectedOccasionKey = '';
+      searchQuery = '';
+      // reset inputs / UI
+      document.querySelectorAll('.subcat').forEach(n => n.classList.remove('active-subcat'));
+      document.getElementById('minPrice').value = '';
+      document.getElementById('maxPrice').value = '';
+      divisionEl.value = ''; districtEl.innerHTML = '<option value="">Select District</option>';
+      cityEl.innerHTML = '<option value="">Select City</option>';
+      document.getElementById('searchInput').value = '';
+      syncOccasionUI();
+    }
+
+    // Initial open: show categories content
+    (function initOpen() {
+      document.querySelectorAll('.section .content').forEach((c, idx) => {
+        if (idx === 0 || c.id === 'occSidebar') {
+          c.style.display = 'block';
+          c.previousElementSibling.querySelector('.arrow').classList.add('down');
+        }
+      });
+    })();
+
+    // Initial render
+    displayProducts();
+    renderOccasionArea();
+    renderOccasionSidebar();
+    syncOccasionUI();
+    // Refresh occasion UI periodically (optional)
+    setInterval(() => { renderOccasionArea(); renderOccasionSidebar(); syncOccasionUI(); }, 10 * 60 * 1000);
+
+    // Clicks on active filter chips
+    activeFilters.addEventListener('click', (e) => { /* delegated in updateActiveFilterChips */ });
+  </script>
+
+</body>
+
+</html>

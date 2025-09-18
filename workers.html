@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Jobs</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f0f9ff, #cbebff);
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #004085;
+      margin-bottom: 10px;
+    }
+    .container {
+      max-width: 950px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .job-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      background: #f9fcff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .job-card:hover {
+      transform: scale(1.02);
+    }
+    .job-card h3 {
+      margin: 0 0 10px;
+      color: #0056b3;
+    }
+    .rent-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .rent-btn:hover {
+      background: #0056b3;
+    }
+    .nav-links {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .nav-links a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #007bff;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #0056b3;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 10px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Available Labor Jobs</h1>
+  <div class="nav-links">
+    <a href="Labor_log.html">Register Labor</a>
+    <a href="jobs.html">Available Jobs</a>
+    <a href="payments.html">Payment History</a>
+    <a href="labor-profile.html">My Profile</a>
+  </div>
+  <div class="container">
+    <div id="jobsList"></div>
+  </div>
+
+  <!-- Verification Modal -->
+  <div id="verificationModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Verify Labor Identity</h2>
+      <div id="verificationInfo"></div>
+      <button id="verifyBtn" class="rent-btn">Verify and Pay 30%</button>
+    </div>
+  </div>
+
+  <script>
+    const TAX = 50; // fixed platform tax
+
+    let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+    let payments = JSON.parse(localStorage.getItem('payments')) || [];
+    let laborProfiles = JSON.parse(localStorage.getItem('laborProfiles')) || [];
+    let currentJobIndex = null;
+
+    function displayJobs() {
+      const jobsList = document.getElementById('jobsList');
+      jobsList.innerHTML = '';
+      if(jobs.length === 0){
+        jobsList.innerHTML = "<p>No labor jobs available.</p>";
+        return;
+      }
+      jobs.forEach((job, index) => {
+        if (job.status !== 'available') return;
+        
+        const members = job.members.map(m => {
+          if (m.age < 18) return `${m.name} (Age: ${m.age}, Phone: ${m.phone}, Birth Reg.)`;
+          else return `${m.name} (Age: ${m.age}, Phone: ${m.phone}, NID: ${m.idNum || 'N/A'})`;
+        }).join('<br>');
+
+        jobsList.innerHTML += `
+          <div class="job-card">
+            <h3>${job.type === 'single' ? 'Single Labor' : 'Group Labor'}</h3>
+            <p><strong>Members:</strong><br>${members}</p>
+            <p><strong>Price:</strong> ${job.price} / day</p>
+            <p><strong>Platform Tax:</strong> ${TAX}</p>
+            <button class="rent-btn" onclick="openVerificationModal(${index})">Rent & Pay Tax</button>
+          </div>
+        `;
+      });
+    }
+
+    function openVerificationModal(index) {
+      currentJobIndex = index;
+      const job = jobs[index];
+      const modal = document.getElementById('verificationModal');
+      const verificationInfo = document.getElementById('verificationInfo');
+      
+      verificationInfo.innerHTML = `
+        <p><strong>Labor Type:</strong> ${job.type}</p>
+        <p><strong>Primary Member:</strong> ${job.members[0].name}</p>
+        <p><strong>ID Type:</strong> ${job.members[0].idType}</p>
+        <p><strong>ID Number:</strong> ${job.members[0].idNum || 'N/A'}</p>
+        <p><strong>Daily Rate:</strong> $${job.price}</p>
+        <p><strong>Initial Payment (30%):</strong> $${job.price * 0.3}</p>
+        <p><strong>Platform Tax:</strong> $${TAX}</p>
+        <p><strong>Total Initial Payment:</strong> $${(job.price * 0.3) + TAX}</p>
+      `;
+      
+      modal.style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById('verificationModal').style.display = "none";
+    }
+
+    function rentLabor() {
+      if (currentJobIndex === null) return;
+      
+      const job = jobs[currentJobIndex];
+      const initialPayment = job.price * 0.3;
+      const totalPayment = initialPayment + TAX;
+      
+      // Update job status
+      job.status = 'rented';
+      job.rentDate = new Date().toLocaleString();
+      job.paymentStatus = '30% paid';
+      
+      // Save payment history
+      const paymentRecord = {
+        type: job.type,
+        laborId: job.laborId,
+        members: job.members,
+        initialPayment: initialPayment,
+        tax: TAX,
+        totalPayment: totalPayment,
+        date: new Date().toLocaleString(),
+        status: '30% paid'
+      };
+      
+      payments.push(paymentRecord);
+      localStorage.setItem('payments', JSON.stringify(payments));
+      localStorage.setItem('jobs', JSON.stringify(jobs));
+      
+      // Update labor profile
+      const laborProfile = laborProfiles.find(profile => profile.id === job.laborId);
+      if (laborProfile) {
+        laborProfile.paymentHistory.push({
+          type: 'initial',
+          amount: initialPayment,
+          date: new Date().toLocaleString(),
+          jobId: job.laborId
+        });
+        
+        laborProfile.wallet += initialPayment;
+        localStorage.setItem('laborProfiles', JSON.stringify(laborProfiles));
+      }
+      
+      alert(`Payment successful! Initial payment of $${totalPayment} has been processed.`);
+      closeModal();
+      displayJobs();
+    }
+
+    // Event listeners
+    document.querySelector('.close').addEventListener('click', closeModal);
+    document.getElementById('verifyBtn').addEventListener('click', rentLabor);
+    
+    window.onclick = function(event) {
+      const modal = document.getElementById('verificationModal');
+      if (event.target == modal) {
+        closeModal();
+      }
+    };
+
+    window.onload = displayJobs;
+  </script>
+</body>
+</html>

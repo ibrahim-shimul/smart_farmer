@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Crops - Smart Farmers</title>
+     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #f8fff8;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #2e7d32;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      padding: 30px;
+      font-size: 10rem;    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 1400px;
+      margin: auto;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: 0.3s;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin: 10px auto;
+      display: block;
+    }
+
+    .card-content h2 {
+      font-size: 20px;
+      margin: 10px 0;
+      color: #1b5e20;
+    }
+
+    .short-info {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #666;
+    }
+
+    .details {
+      display: none;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-top: 10px;
+      color: #444;
+      text-align: left;
+    }
+
+    .toggle-btn {
+      background: #43a047;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .toggle-btn:hover {
+      background: #2e7d32;
+    }
+
+    .admin-panel {
+      max-width: 700px;
+      margin: auto;
+      background: #e8f5e9;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .admin-panel input,
+    .admin-panel textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .admin-panel button {
+      background: #388e3c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .admin-panel button:hover {
+      background: #2e7d32;
+    }
+  </style>
+</head>
+
+<body>
+
+   
+
+    <!-- -------------------farming----------------------- -->
+     <header class="top-bar">
+        <div class="top-left">
+            <img src="img/logo.png"
+                alt="Logo" class="logo">
+            <span class="brand">Smart Farmers</span>
+        </div>
+
+        <div class="top-center">
+            <a href="live weather.html"><button id="weather-btn">🌤 Live Weather</button></a>
+
+        </div>
+
+        <div class="top-right">
+            <a href="ai chat.html"> <button id="voice-btn">🎤 AI Voice Assistant</button></a>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="nav-link active">Farming</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="fruitCrops.html">Fruit Crops</a></li>
+                        <li><a href="fieldCrops.html">Field Crops</a></li>
+                        <li><a href="vegetable.html">Vegetable Crops</a></li>
+                        <li><a href="organic.html">Organic Culture</a></li>
+                        <li><a href="water-management.html">Water Management</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="service.html" class="nav-link">Services</a></li>
+                <li><a href="subsidy.html" class="nav-link">Subsidy</a></li>
+                <li><a href="market_place.html" class="nav-link">Market_Place</a></li>
+
+                <!-- <li class="dropdown">
+                    <a href="#" class="nav-link active">Market_place</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="seller.html">Seller</a></li>
+                        <li><a href="buyer.html">Buyer</a></li>
+                    </ul>
+                </li> -->
+
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                 <li class="dropdown">
+                    <a href="#" class="nav-link active">Farmers</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="Labor_log.html">Labor Job </a></li>
+                        <li><a href="workers.html">Workers</a></li>
+                        <li><a href="labor-profile.html">Labor_Profile</a></li>
+                        <li><a href="payments.html">Payment History</a></li>
+                    </ul>
+                </li>>
+                <li><a href="#" class="nav-link">Elements</a></li>
+                <li><a href="#" class="nav-link">Faq</a></li>
+                <li><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Content Section -->
+   <h1>🍎 Fruit Crops Farming Information System 🍌</h1>
+
+  <!-- Fruits Grid -->
+  <div class="grid" id="fruitGrid">
+    <!-- Your 15 fruits stay exactly as they are -->
+    <!-- (Paste all your fruit cards from one.html here, unchanged) -->
+    <!-- Example: -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/mango.png" alt="Mango">
+      <div class="card-content">
+        <h2>Mango</h2>
+        <p class="short-info">The king of fruits, grown in tropical climates.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Well-drained alluvial soil, pH 5.5–7.5.</p>
+          <p><b>Climate:</b> Tropical & subtropical, warm & dry.</p>
+          <p><b>Planting:</b> Grafted plants, spacing 8–10m.</p>
+          <p><b>Irrigation:</b> 10–15 days in summer.</p>
+          <p><b>Harvesting:</b> After 3–5 years.</p>
+          <p><b>Yield:</b> 10–20 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Eaten fresh, juices, desserts. Rich in vitamin A, C, and antioxidants.</p>
+          <p><b>Season:</b> March to June</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banana -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/banana.png" alt="Banana">
+      <div class="card-content">
+        <h2>Banana</h2>
+        <p class="short-info">High yielding, grown year-round.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Rich loamy soil with drainage.</p>
+          <p><b>Climate:</b> Warm & humid, 20–35°C.</p>
+          <p><b>Planting:</b> Suckers/tissue culture, 1.5–2m spacing.</p>
+          <p><b>Irrigation:</b> Every 7–10 days.</p>
+          <p><b>Harvesting:</b> 11–12 months after planting.</p>
+          <p><b>Yield:</b> 40–50 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Eaten fresh, desserts, smoothies. High in potassium and energy.</p>
+          <p><b>Season:</b> Year-round</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Apple -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/apple.png" alt="Apple">
+      <div class="card-content">
+        <h2>Apple</h2>
+        <p class="short-info">Temperate fruit crop, requires chilling hours.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Loamy, pH 5.5–6.5.</p>
+          <p><b>Climate:</b> Cool temperate.</p>
+          <p><b>Planting:</b> 4–5m spacing.</p>
+          <p><b>Irrigation:</b> 10–12 days in summer.</p>
+          <p><b>Harvesting:</b> 5–8 years.</p>
+          <p><b>Yield:</b> 10–12 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Eaten fresh, juices, pies. Rich in fiber and vitamin C.</p>
+          <p><b>Season:</b> September to December</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orange -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/orange.png" alt="Orange">
+      <div class="card-content">
+        <h2>Orange</h2>
+        <p class="short-info">Vitamin C-rich citrus fruit.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Sandy loam to clay loam.</p>
+          <p><b>Climate:</b> Subtropical.</p>
+          <p><b>Planting:</b> 6m spacing.</p>
+          <p><b>Irrigation:</b> 10–15 days.</p>
+          <p><b>Harvesting:</b> 4–5 years.</p>
+          <p><b>Yield:</b> 15–20 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Juices, fresh eating. High in vitamin C and antioxidants.</p>
+          <p><b>Season:</b> December to March</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Papaya -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/papaya.png" alt="Papaya">
+      <div class="card-content">
+        <h2>Papaya</h2>
+        <p class="short-info">Fast-growing, fruit in 8–10 months.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Light, well-drained loam.</p>
+          <p><b>Climate:</b> Tropical, frost-sensitive.</p>
+          <p><b>Planting:</b> 1.5–2m spacing.</p>
+          <p><b>Irrigation:</b> 7–10 days.</p>
+          <p><b>Harvesting:</b> 8–10 months.</p>
+          <p><b>Yield:</b> 30–40 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Eaten fresh, smoothies. Contains papain for digestion and vitamin C.</p>
+          <p><b>Season:</b> All year in tropical areas</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Strawberry -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/strawberry.png" alt="Strawberry">
+      <div class="card-content">
+        <h2>Strawberry</h2>
+        <p class="short-info">Delicious red berry, grows in temperate regions.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Sandy loam, pH 5.5–6.5.</p>
+          <p><b>Climate:</b> Cool, frost-free with good sunlight.</p>
+          <p><b>Planting:</b> Spacing 30–45cm.</p>
+          <p><b>Irrigation:</b> Regular, avoid waterlogging.</p>
+          <p><b>Harvesting:</b> 4–6 weeks after flowering.</p>
+          <p><b>Yield:</b> 20–25 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Eaten fresh, jams, desserts. Rich in vitamin C and antioxidants.</p>
+          <p><b>Season:</b> March to May</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kiwi -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/kiwi.png" alt="Kiwi">
+      <div class="card-content">
+        <h2>Kiwi</h2>
+        <p class="short-info">Tropical-subtropical fruit, high in vitamin C.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Fertile, well-drained, slightly acidic.</p>
+          <p><b>Climate:</b> Mild, frost-free regions.</p>
+          <p><b>Planting:</b> Trellis-supported vines, spacing 3–4m.</p>
+          <p><b>Irrigation:</b> Frequent in growing season.</p>
+          <p><b>Harvesting:</b> 3–4 years after planting.</p>
+          <p><b>Yield:</b> 15–20 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Eaten fresh, smoothies, desserts. High in vitamin C, fiber, and antioxidants.</p>
+          <p><b>Season:</b> October to March</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- More fruits added: Pineapple, Grapes, Guava, Litchi, Watermelon, Pomegranate, Avocado -->
+    <!-- Pineapple -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/pineapple.png" alt="Pineapple">
+      <div class="card-content">
+        <h2>Pineapple</h2>
+        <p class="short-info">Tropical fruit with high vitamin C.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Sandy loam with drainage.</p>
+          <p><b>Climate:</b> Tropical, 22–32°C.</p>
+          <p><b>Planting:</b> 45–60cm spacing.</p>
+          <p><b>Irrigation:</b> 10–12 days.</p>
+          <p><b>Harvesting:</b> 15–18 months.</p>
+          <p><b>Yield:</b> 25–30 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Fresh, juices, desserts. Rich in vitamin C and manganese.</p>
+          <p><b>Season:</b> March to July</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grapes -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/grapes.png" alt="Grapes">
+      <div class="card-content">
+        <h2>Grapes</h2>
+        <p class="short-info">Grown for table, wine, and raisins.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Sandy loam to clay loam.</p>
+          <p><b>Climate:</b> Subtropical, dry conditions.</p>
+          <p><b>Planting:</b> 2–3m spacing.</p>
+          <p><b>Irrigation:</b> 7–12 days.</p>
+          <p><b>Harvesting:</b> 2–3 years.</p>
+          <p><b>Yield:</b> 20–25 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Fresh, wine, raisins. High in antioxidants.</p>
+          <p><b>Season:</b> August to October</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guava -->
+    <div class="card">
+      <img src="https://i.pinimg.com/736x/b2/6b/b3/b26bb37d2c3ba56df71cc36c583f3d48.jpg" alt="Guava">
+      <div class="card-content">
+        <h2>Guava</h2>
+        <p class="short-info">Hardy fruit, grows in all climates.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Well-drained sandy loam.</p>
+          <p><b>Climate:</b> Tropical to subtropical.</p>
+          <p><b>Planting:</b> 5–6m spacing.</p>
+          <p><b>Irrigation:</b> 12–15 days.</p>
+          <p><b>Harvesting:</b> 2–3 years.</p>
+          <p><b>Yield:</b> 20–25 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Eaten fresh, jams, juices. Rich in vitamin C.</p>
+          <p><b>Season:</b> Year-round</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Litchi -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/lychee.png" alt="Litchi">
+      <div class="card-content">
+        <h2>Litchi</h2>
+        <p class="short-info">Exotic fruit, requires high humidity.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Deep loam with drainage.</p>
+          <p><b>Climate:</b> Humid subtropical.</p>
+          <p><b>Planting:</b> 8–10m spacing.</p>
+          <p><b>Irrigation:</b> Weekly in dry season.</p>
+          <p><b>Harvesting:</b> 5–6 years.</p>
+          <p><b>Yield:</b> 10–12 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Fresh, juices, desserts. Rich in vitamin C and antioxidants.</p>
+          <p><b>Season:</b> May to June</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Watermelon -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/watermelon.png" alt="Watermelon">
+      <div class="card-content">
+        <h2>Watermelon</h2>
+        <p class="short-info">Summer fruit, rich in water content.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Sandy loam, well-drained.</p>
+          <p><b>Climate:</b> Warm, 24–27°C.</p>
+          <p><b>Planting:</b> 2–3m spacing.</p>
+          <p><b>Irrigation:</b> 8–10 days.</p>
+          <p><b>Harvesting:</b> 80–100 days.</p>
+          <p><b>Yield:</b> 25–30 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Eaten fresh, juices. Hydrating and rich in vitamins.</p>
+          <p><b>Season:</b> April to July</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pomegranate -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/pomegranate.png" alt="Pomegranate">
+      <div class="card-content">
+        <h2>Pomegranate</h2>
+        <p class="short-info">Tropical-subtropical fruit, rich in antioxidants.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Well-drained sandy loam.</p>
+          <p><b>Climate:</b> Warm & dry regions.</p>
+          <p><b>Planting:</b> 3–4m spacing.</p>
+          <p><b>Irrigation:</b> Every 10–15 days.</p>
+          <p><b>Harvesting:</b> 2–3 years.</p>
+          <p><b>Yield:</b> 15–20 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Fresh, juices, jams. Improves heart health.</p>
+          <p><b>Season:</b> September to February</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Avocado -->
+    <div class="card">
+      <img src="https://img.icons8.com/color/96/avocado.png" alt="Avocado">
+      <div class="card-content">
+        <h2>Avocado</h2>
+        <p class="short-info">Rich in healthy fats and nutrients.</p>
+        <button class="toggle-btn">View Farming Info</button>
+        <div class="details">
+          <p><b>Soil:</b> Well-drained sandy loam.</p>
+          <p><b>Climate:</b> Tropical to subtropical, frost-free.</p>
+          <p><b>Planting:</b> 5–6m spacing.</p>
+          <p><b>Irrigation:</b> Moderate, frequent during fruiting.</p>
+          <p><b>Harvesting:</b> 3–4 years after planting.</p>
+          <p><b>Yield:</b> 10–15 tons/ha.</p>
+          <p><b>Uses & Benefits:</b> Eaten fresh, salads, smoothies. High in monounsaturated fats and potassium.</p>
+          <p><b>Season:</b> Year-round</p>
+        </div>
+      </div>
+    </div>
+    <!-- ... (rest of your 14 fruits) ... -->
+  </div>
+
+  <!-- Admin Panel -->
+  <div class="admin-panel">
+    <h2>Admin: Add New Fruit</h2>
+    <input type="text" id="fruitName" placeholder="Fruit Name" required>
+    <input type="text" id="fruitImg" placeholder="Image URL" required>
+    <input type="text" id="shortInfo" placeholder="Short Info" required>
+    <textarea id="soil" placeholder="Soil Info"></textarea>
+    <textarea id="climate" placeholder="Climate Info"></textarea>
+    <textarea id="planting" placeholder="Planting Info"></textarea>
+    <textarea id="irrigation" placeholder="Irrigation Info"></textarea>
+    <textarea id="harvesting" placeholder="Harvesting Info"></textarea>
+    <textarea id="yield" placeholder="Yield Info"></textarea>
+    <textarea id="uses" placeholder="Uses & Benefits"></textarea>
+    <input type="text" id="season" placeholder="Season">
+    <button id="addFruitBtn">Add Fruit</button>
+  </div>
+
+  <script>
+    // Toggle farming details
+    function addToggleListeners() {
+      document.querySelectorAll(".toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const details = btn.nextElementSibling;
+          if (details.style.display === "block") {
+            details.style.display = "none";
+            btn.textContent = "View Farming Info";
+          } else {
+            details.style.display = "block";
+            btn.textContent = "Hide Farming Info";
+          }
+        });
+      });
+    }
+
+    addToggleListeners();
+
+    // Add new fruit dynamically
+    document.getElementById("addFruitBtn").addEventListener("click", () => {
+      const name = document.getElementById("fruitName").value;
+      const img = document.getElementById("fruitImg").value;
+      const shortInfo = document.getElementById("shortInfo").value;
+      const soil = document.getElementById("soil").value;
+      const climate = document.getElementById("climate").value;
+      const planting = document.getElementById("planting").value;
+      const irrigation = document.getElementById("irrigation").value;
+      const harvesting = document.getElementById("harvesting").value;
+      const yieldInfo = document.getElementById("yield").value;
+      const uses = document.getElementById("uses").value;
+      const season = document.getElementById("season").value;
+
+      if (!name || !img || !shortInfo) {
+        alert("Please fill at least Name, Image URL, and Short Info.");
+        return;
+      }
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${img}" alt="${name}">
+        <div class="card-content">
+          <h2>${name}</h2>
+          <p class="short-info">${shortInfo}</p>
+          <button class="toggle-btn">View Farming Info</button>
+          <div class="details">
+            ${soil ? `<p><b>Soil:</b> ${soil}</p>` : ''}
+            ${climate ? `<p><b>Climate:</b> ${climate}</p>` : ''}
+            ${planting ? `<p><b>Planting:</b> ${planting}</p>` : ''}
+            ${irrigation ? `<p><b>Irrigation:</b> ${irrigation}</p>` : ''}
+            ${harvesting ? `<p><b>Harvesting:</b> ${harvesting}</p>` : ''}
+            ${yieldInfo ? `<p><b>Yield:</b> ${yieldInfo}</p>` : ''}
+            ${uses ? `<p><b>Uses & Benefits:</b> ${uses}</p>` : ''}
+            ${season ? `<p><b>Season:</b> ${season}</p>` : ''}
+          </div>
+        </div>
+      `;
+      document.getElementById("fruitGrid").appendChild(card);
+      addToggleListeners();
+
+      // Clear form
+      document.getElementById("fruitName").value = '';
+      document.getElementById("fruitImg").value = '';
+      document.getElementById("shortInfo").value = '';
+      document.getElementById("soil").value = '';
+      document.getElementById("climate").value = '';
+      document.getElementById("planting").value = '';
+      document.getElementById("irrigation").value = '';
+      document.getElementById("harvesting").value = '';
+      document.getElementById("yield").value = '';
+      document.getElementById("uses").value = '';
+      document.getElementById("season").value = '';
+    });
+    
+  </script>
+   <!-- Back to Top -->
+    <a href="#" class="btn btn-secondary py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

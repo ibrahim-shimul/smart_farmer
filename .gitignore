@@ -1,0 +1,14 @@
+# Git ignore for static web project
+node_modules/
+dist/
+build/
+coverage/
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+*.env
+*.local
+.vscode/
+.idea/

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment History</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #fff0f6, #ffe6f0);
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #7a004b;
+      margin-bottom: 10px;
+    }
+    .container {
+      max-width: 950px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .payment-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      background: #fff9fc;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .payment-card:hover {
+      transform: scale(1.02);
+    }
+    .payment-card h3 {
+      margin: 0 0 10px;
+      color: #7a004b;
+    }
+    .nav-links {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .nav-links a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #7a004b;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #4d002d;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .complete-btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .complete-btn:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>Payment History</h1>
+  <div class="nav-links">
+    <a href="Labor_log.html">Register Labor</a>
+    <a href="jobs.html">Available Jobs</a>
+    <a href="payments.html">Payment History</a>
+    <a href="labor-profile.html">My Profile</a>
+  </div>
+  <div class="container">
+    <div id="paymentsList"></div>
+  </div>
+
+  <script>
+    let payments = JSON.parse(localStorage.getItem('payments')) || [];
+    let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+    let laborProfiles = JSON.parse(localStorage.getItem('laborProfiles')) || [];
+
+    function displayPayments() {
+      const paymentsList = document.getElementById('paymentsList');
+      paymentsList.innerHTML = '';
+      if(payments.length === 0){
+        paymentsList.innerHTML = "<p>No payments have been made yet.</p>";
+        return;
+      }
+      
+      payments.forEach((pay, index) => {
+        const members = pay.members.map(m => {
+          if (m.age < 18) return `${m.name} (Age: ${m.age}, Birth Reg.)`;
+          else return `${m.name} (Age: ${m.age}, NID: ${m.idNum || 'N/A'})`;
+        }).join(', ');
+
+        paymentsList.innerHTML += `
+          <div class="payment-card">
+            <h3>${pay.type === 'single' ? 'Single Labor' : 'Group Labor'} - ${pay.status || 'Tax Paid'}</h3>
+            <p><strong>Labor ID:</strong> ${pay.laborId || 'N/A'}</p>
+            <p><strong>Members:</strong> ${members}</p>
+            <p><strong>Initial Payment:</strong> $${pay.initialPayment || 0}</p>
+            <p><strong>Tax Amount:</strong> $${pay.tax}</p>
+            <p><strong>Total Paid:</strong> $${pay.totalPayment || pay.tax}</p>
+            <p><strong>Date:</strong> ${pay.date}</p>
+            <p><strong>Status:</strong> ${pay.status || 'Completed'}</p>
+            ${pay.status === '30% paid' ? 
+              `<button class="complete-btn" onclick="completePayment(${index})">Complete Job & Pay Remaining 70%</button>` : ''}
+          </div>
+        `;
+      });
+    }
+
+    function completePayment(index) {
+      const payment = payments[index];
+      const remainingAmount = payment.initialPayment * 70/30; // Calculate remaining 70%
+      const totalPayment = remainingAmount;
+      
+      if (confirm(`Complete this job and pay the remaining $${remainingAmount}?`)) {
+        // Update payment record
+        payment.status = 'completed';
+        payment.finalPayment = remainingAmount;
+        payment.totalPayment = payment.initialPayment + payment.tax + remainingAmount;
+        payment.completionDate = new Date().toLocaleString();
+        
+        // Update job status
+        const jobIndex = jobs.findIndex(job => job.laborId === payment.laborId);
+        if (jobIndex !== -1) {
+          jobs[jobIndex].status = 'completed';
+          jobs[jobIndex].paymentStatus = 'completed';
+          jobs[jobIndex].completionDate = new Date().toLocaleString();
+        }
+        
+        // Update labor profile
+        const laborProfile = laborProfiles.find(profile => profile.id === payment.laborId);
+        if (laborProfile) {
+          laborProfile.wallet += remainingAmount;
+          laborProfile.completedJobs.push({
+            jobId: payment.laborId,
+            date: new Date().toLocaleString(),
+            earnings: payment.initialPayment + remainingAmount
+          });
+          laborProfile.paymentHistory.push({
+            type: 'final',
+            amount: remainingAmount,
+            date: new Date().toLocaleString(),
+            jobId: payment.laborId
+          });
+        }
+        
+        localStorage.setItem('payments', JSON.stringify(payments));
+        localStorage.setItem('jobs', JSON.stringify(jobs));
+        localStorage.setItem('laborProfiles', JSON.stringify(laborProfiles));
+        
+        alert(`Payment completed! $${remainingAmount} has been paid to the labor.`);
+        displayPayments();
+      }
+    }
+
+    window.onload = displayPayments;
+  </script>
+</body>
+</html>

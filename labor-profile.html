@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Labor Profile</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e6f7ff, #ccf2ff);
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #0066cc;
+      margin-bottom: 10px;
+    }
+    .container {
+      max-width: 950px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .profile-card, .wallet-card, .jobs-card, .payment-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      background: #f9fcff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .nav-links {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .nav-links a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #0066cc;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #004d99;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .withdraw-btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .withdraw-btn:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Labor Profile</h1>
+  <div class="nav-links">
+    <a href="Labor_log.html">Register Labor</a>
+    <a href="jobs.html">Available Jobs</a>
+    <a href="payments.html">Payment History</a>
+    <a href="labor-profile.html">My Profile</a>
+  </div>
+  <div class="container">
+    <div class="profile-card">
+      <h2>Profile Information</h2>
+      <div id="profileInfo"></div>
+    </div>
+    
+    <div class="wallet-card">
+      <h2>My Wallet</h2>
+      <div id="walletInfo"></div>
+      <button class="withdraw-btn" onclick="withdrawFunds()">Withdraw Funds</button>
+    </div>
+    
+    <div class="jobs-card">
+      <h2>Completed Jobs</h2>
+      <div id="completedJobs"></div>
+    </div>
+    
+    <div class="payment-card">
+      <h2>Payment History</h2>
+      <div id="paymentHistory"></div>
+    </div>
+  </div>
+
+  <script>
+    let laborProfiles = JSON.parse(localStorage.getItem('laborProfiles')) || [];
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+    let payments = JSON.parse(localStorage.getItem('payments')) || [];
+
+    function displayProfile() {
+      if (!currentUser) {
+        alert('No labor profile found. Please register first.');
+        window.location.href = 'index.html';
+        return;
+      }
+      
+      // Update current user data from storage
+      const updatedProfile = laborProfiles.find(profile => profile.id === currentUser.id);
+      if (updatedProfile) {
+        currentUser = updatedProfile;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      }
+      
+      document.getElementById('profileInfo').innerHTML = `
+        <p><strong>Labor ID:</strong> ${currentUser.id}</p>
+        <p><strong>Name:</strong> ${currentUser.name}</p>
+        <p><strong>Type:</strong> ${currentUser.type}</p>
+        <p><strong>Registration Date:</strong> ${currentUser.registrationDate || 'N/A'}</p>
+      `;
+      
+      document.getElementById('walletInfo').innerHTML = `
+        <p><strong>Current Balance:</strong> $${currentUser.wallet || 0}</p>
+        <p><strong>Total Earnings:</strong> $${calculateTotalEarnings()}</p>
+      `;
+      
+      displayCompletedJobs();
+      displayPaymentHistory();
+    }
+    
+    function calculateTotalEarnings() {
+      if (!currentUser.completedJobs || currentUser.completedJobs.length === 0) return 0;
+      return currentUser.completedJobs.reduce((total, job) => total + job.earnings, 0);
+    }
+    
+    function displayCompletedJobs() {
+      const completedJobsElem = document.getElementById('completedJobs');
+      if (!currentUser.completedJobs || currentUser.completedJobs.length === 0) {
+        completedJobsElem.innerHTML = '<p>No completed jobs yet.</p>';
+        return;
+      }
+      
+      completedJobsElem.innerHTML = '';
+      currentUser.completedJobs.forEach(job => {
+        completedJobsElem.innerHTML += `
+          <div style="border-bottom: 1px solid #eee; padding: 10px 0;">
+            <p><strong>Job ID:</strong> ${job.jobId}</p>
+            <p><strong>Date Completed:</strong> ${job.date}</p>
+            <p><strong>Earnings:</strong> $${job.earnings}</p>
+          </div>
+        `;
+      });
+    }
+    
+    function displayPaymentHistory() {
+      const paymentHistoryElem = document.getElementById('paymentHistory');
+      if (!currentUser.paymentHistory || currentUser.paymentHistory.length === 0) {
+        paymentHistoryElem.innerHTML = '<p>No payment history yet.</p>';
+        return;
+      }
+      
+      paymentHistoryElem.innerHTML = '';
+      currentUser.paymentHistory.forEach(payment => {
+        paymentHistoryElem.innerHTML += `
+          <div style="border-bottom: 1px solid #eee; padding: 10px 0;">
+            <p><strong>Type:</strong> ${payment.type} payment</p>
+            <p><strong>Job ID:</strong> ${payment.jobId}</p>
+            <p><strong>Amount:</strong> $${payment.amount}</p>
+            <p><strong>Date:</strong> ${payment.date}</p>
+          </div>
+        `;
+      });
+    }
+    
+    function withdrawFunds() {
+      if (currentUser.wallet <= 0) {
+        alert('No funds available for withdrawal.');
+        return;
+      }
+      
+      const amount = currentUser.wallet;
+      if (confirm(`Withdraw $${amount} to your bank account?`)) {
+        // Add withdrawal record
+        if (!currentUser.paymentHistory) currentUser.paymentHistory = [];
+        currentUser.paymentHistory.push({
+          type: 'withdrawal',
+          amount: amount,
+          date: new Date().toLocaleString(),
+          status: 'processed'
+        });
+        
+        // Reset wallet
+        currentUser.wallet = 0;
+        
+        // Update storage
+        const index = laborProfiles.findIndex(profile => profile.id === currentUser.id);
+        if (index !== -1) {
+          laborProfiles[index] = currentUser;
+          localStorage.setItem('laborProfiles', JSON.stringify(laborProfiles));
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        }
+        
+        alert(`Successfully withdrawn $${amount}.`);
+        displayProfile();
+      }
+    }
+
+    window.onload = displayProfile;
+  </script>
+</body>
+</html>
