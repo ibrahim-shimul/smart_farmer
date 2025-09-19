@@ -261,11 +261,22 @@
           localStorage.removeItem("sfRememberEmail");
         }
 
-        localStorage.setItem("sfLoggedIn", "1");
-        localStorage.setItem("sfCurrentEmail", email);
+        // Simple demo authentication - replace with real backend later
+        const validCredentials = {
+          "admin": "admin123",
+          "farmer": "farmer123", 
+          "buyer": "buyer123",
+          "test@example.com": "password123"
+        };
 
-        alert("Login successful!");
-        window.location.href = "home.html";
+        if (validCredentials[email] && validCredentials[email] === pass) {
+          localStorage.setItem("sfLoggedIn", "1");
+          localStorage.setItem("sfCurrentEmail", email);
+          alert("Login successful!");
+          window.location.href = "index.html";
+        } else {
+          alert("Invalid email/username or password. Try:\n- admin / admin123\n- farmer / farmer123\n- buyer / buyer123\n- test@example.com / password123");
+        }
       });
 
       if (forgotLink) {
