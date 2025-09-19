@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="style copy.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-side">
+        <h1>Registration</h1>
+        <div class="logo">[LOGO]</div>
+        <h2>Connecting Farmers & Buyers — Fresh Market at your doorstep</h2>
+        <p>
+          We ensure safety, authenticity, and fair pricing for farmers and
+          customers.
+        </p>
+
+        <!-- Video block -->
+        <!-- <div id="video" class="video-section">
+          <div class="video-wrapper"> -->
+        <!-- OPTION A: Local MP4 -->
+        <!-- <video controls>
+              <source src="videos/intro.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video> -->
+
+        <!-- VIDEO: YouTube embed -->
+        <!-- <div class="video-section">
+  <div class="video-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/-MbDVQDhBk8?rel=0&modestbranding=1&playsinline=1"
+      title="Smart Farmer Intro"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </div>
+  <p class="video-caption">Watch how Smart Farmer works</p>
+</div> -->
+
+
+        <!-- VIDEO: Local MP4 -->
+        <div id="video" class="video-section">
+          <video controls width="100%" preload="metadata" playsinline>
+            <source src="vedios/reg.mp4" type="video/mp4" />
+            আপনার ব্রাউজার ভিডিও সাপোর্ট করছে না।
+          </video>
+          <p class="video-caption">Watch how Smart Farmer works</p>
+        </div>
+
+        <!-- Optional: if you still want the link to jump to the video -->
+        <a href="https://www.youtube.com/watch?v=Vf_shMr3pbw" class="watch-video">▶ Watch more Video</a>
+      </div>
+
+
+      <!-- RIGHT SIDE -->
+      <div class="right-side">
+        <div class="register-container">
+          <h2>Create your account</h2>
+          <form id="registerForm">
+            <div class="form-group">
+              <label>Full Name:</label>
+              <input type="text" id="fullname" required />
+              <div class="error" id="fullnameError"></div>
+            </div>
+
+            <div class="form-group">
+              <label>Email:</label>
+              <input type="email" id="email" required />
+              <div class="error" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+              <label>Phone:</label>
+              <input type="text" id="phone" required />
+              <div class="error" id="phoneError"></div>
+            </div>
+
+            <div class="form-group">
+              <label>National ID (NID):</label>
+              <input type="text" id="nid" required />
+              <div class="error" id="nidError"></div>
+            </div>
+
+            <div class="form-group">
+              <label>Division:</label>
+              <select id="division" required>
+                <option value="">-- Select Division --</option>
+              </select>
+              <div class="error" id="divisionError"></div>
+            </div>
+
+            <div class="form-group">
+              <label>District:</label>
+              <select id="district" required disabled>
+                <option value="">-- Select District --</option>
+              </select>
+              <div class="error" id="districtError"></div>
+            </div>
+
+            <div class="form-group">
+              <label>City:</label>
+              <select id="city" required disabled>
+                <option value="">-- Select City --</option>
+              </select>
+              <div class="error" id="cityError"></div>
+            </div>
+
+            <div class="form-group">
+              <label>Role:</label>
+              <div class="roles">
+                <label
+                  ><input type="radio" name="role" value="Buyer" /> Buyer</label
+                >
+                <label
+                  ><input type="radio" name="role" value="Seller" />
+                  Seller</label
+                >
+                <label
+                  ><input type="radio" name="role" value="Both" /> Both</label
+                >
+              </div>
+              <div class="error" id="roleError"></div>
+            </div>
+
+            <div class="form-group">
+              <label>Password:</label>
+              <input type="password" id="password" required />
+              <div class="error" id="passwordError"></div>
+            </div>
+
+            <div class="form-group">
+              <label>Confirm Password:</label>
+              <input type="password" id="confirmPassword" required />
+              <div class="error" id="confirmPasswordError"></div>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="terms" /> I agree to Terms & Privacy
+              </label>
+              <div class="error" id="termsError"></div>
+            </div>
+
+            <button type="submit">REGISTER</button>
+          </form>
+
+          <div class="login-link">
+            Already have an account? <a href="login.html">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <a href="#">Help</a> | <a href="#">Terms</a> |
+      <a href="#">Privacy</a>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

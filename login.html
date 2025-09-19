@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Farmer – Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,.30)),
+        url("images/reg1.jpg") center/cover no-repeat fixed;
+    }
+
+    .sf-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(45,52,54,.85);
+      color: #fff;
+      padding: 16px 24px;
+      font-weight: 700;
+      font-size: 22px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .sf-login {
+      min-height: calc(100vh - 110px);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 22px;
+      padding: 24px 18px;
+    }
+
+    .sf-login__left {
+      flex: 0 0 40%;
+      display: flex;
+      align-items: center;
+    }
+
+    .sf-left-box {
+      color: #f8fffb;
+      padding: 16px 10px;
+      text-shadow: 0 1px 2px rgba(0,0,0,.35);
+    }
+
+    .sf-left-box h1 {
+      font-size: 32px;
+      line-height: 1.25;
+      margin: 0 0 8px;
+    }
+
+    .sf-left-box p {
+      font-size: 18px;
+      margin: 6px 0;
+    }
+
+    .sf-login__right {
+      flex: 1 1 60%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sf-card {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(255,255,255,.95);
+      border-radius: 14px;
+      padding: 26px 26px 20px;
+      box-shadow: 0 14px 32px rgba(0,0,0,.18);
+    }
+
+    .sf-card h2 {
+      margin: 0 0 6px;
+      color: #2d3436;
+      text-align: center;
+    }
+
+    .sf-subtitle {
+      text-align: center;
+      color: #6c757d;
+      margin-bottom: 12px;
+    }
+
+    .sf-input {
+      width: 100%;
+      padding: 12px 12px;
+      margin: 8px 0;
+      border: 1px solid #d9e2dd;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+      transition: box-shadow .2s, border-color .2s;
+      background: #fff;
+    }
+
+    .sf-input:focus {
+      border-color: #27ae60;
+      box-shadow: 0 0 0 3px rgba(39,174,96,.15);
+    }
+
+    .sf-remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0 12px;
+      color: #2d3436;
+    }
+
+    .sf-btn {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: #27ae60;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background .2s, transform .06s ease-in;
+    }
+
+    .sf-btn:hover {
+      background: #219150;
+    }
+
+    .sf-btn:active {
+      transform: translateY(1px);
+    }
+
+    .sf-links {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .sf-links a {
+      color: #0d6efd;
+      text-decoration: none;
+    }
+
+    .sf-links a:hover {
+      text-decoration: underline;
+    }
+
+    .sf-footer {
+      background: #2d3436;
+      color: #fff;
+      text-align: center;
+      padding: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .sf-login {
+        flex-direction: column;
+        gap: 14px;
+        padding: 14px;
+      }
+
+      .sf-login__left,
+      .sf-login__right {
+        flex: 1 1 auto;
+      }
+
+      .sf-left-box h1 {
+        font-size: 26px;
+      }
+
+      .sf-left-box p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Header with page title -->
+  <header class="sf-header">
+    🌱 SMART FARMER – LOGIN PAGE
+  </header>
+
+  <!-- ✅ Main login section -->
+  <main class="sf-login">
+    <section class="sf-login__left">
+      <div class="sf-left-box">
+        <h1>🌱 Empowering Farmers with Technology</h1>
+        <p>🌾 Connecting Farmers to Markets</p>
+        <p>🌍 Building a Sustainable Future Together</p>
+      </div>
+    </section>
+
+    <section class="sf-login__right">
+      <div class="sf-card">
+        <h2>Welcome to Smart Farmer</h2>
+        <div class="sf-subtitle">------------ Login -------------</div>
+
+        <form id="sfLoginForm" autocomplete="off">
+          <input id="sfEmail" class="sf-input" type="text" placeholder="Email / Username" />
+          <input id="sfPassword" class="sf-input" type="password" placeholder="Password" />
+
+          <label class="sf-remember">
+            <input id="sfRemember" type="checkbox" />
+            Remember Me
+          </label>
+
+          <button type="submit" id="loginBtn" class="sf-btn">🔓 Login</button>
+        </form>
+
+        <div class="sf-links">
+          <a href="#" id="forgotPassword">Forgot Password?</a><br/>
+          Don’t have an account? <a href="registration.html">Register</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ✅ Footer -->
+  <footer class="sf-footer">© 2025 Smart Farmer</footer>
+
+  <!-- ✅ Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("sfLoginForm");
+      if (!form) return;
+
+      const emailInput    = document.getElementById("sfEmail");
+      const passwordInput = document.getElementById("sfPassword");
+      const rememberChk   = document.getElementById("sfRemember");
+      const forgotLink    = document.getElementById("forgotPassword");
+
+      const remembered = localStorage.getItem("sfRememberEmail");
+      if (remembered) {
+        emailInput.value = remembered;
+        rememberChk.checked = true;
+      }
+
+      form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const email = (emailInput.value || "").trim();
+        const pass  = passwordInput.value || "";
+
+        if (!email) {
+          alert("Please enter your username/email.");
+          emailInput.focus();
+          return;
+        }
+        if (!pass) {
+          alert("Please enter your password.");
+          passwordInput.focus();
+          return;
+        }
+
+        if (rememberChk.checked) {
+          localStorage.setItem("sfRememberEmail", email);
+        } else {
+          localStorage.removeItem("sfRememberEmail");
+        }
+
+        localStorage.setItem("sfLoggedIn", "1");
+        localStorage.setItem("sfCurrentEmail", email);
+
+        alert("Login successful!");
+        window.location.href = "home.html";
+      });
+
+      if (forgotLink) {
+        forgotLink.addEventListener("click", function(e) {
+          e.preventDefault();
+          const email = prompt("Enter your registered email:");
+          if (email && email.trim()) {
+            alert("Password reset link has been sent to " + email.trim());
+          } else {
+            alert("Please enter your email.");
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

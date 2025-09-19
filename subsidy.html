@@ -1,38 +1,9 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>কৃষি ভর্তুকি ঘোষণা ও ট্র্যাকার</title>
-
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
-
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
-        rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+  <title>Agriculture Subsidy Announcements & Tracker</title>
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -40,7 +11,7 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Noto Sans Bengali', 'Inter', 'ui-sans-serif', 'system-ui']
+            sans: ['Inter', 'ui-sans-serif', 'system-ui']
           },
           boxShadow: {
             soft: '0 10px 30px rgba(0,0,0,0.08)',
@@ -50,11 +21,12 @@
       }
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Inter (English) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* সহজ CSS – Tailwind ছাড়াও কিছু হালকা স্টাইল */
+    /* Minimal extra CSS beyond Tailwind */
 :root{
   --ring: 0 0 0 3px rgba(16, 185, 129, 0.35);
 }
@@ -88,20 +60,18 @@
 .card{ border-radius:1.1rem; background:#fff; box-shadow:0 10px 30px rgba(0,0,0,0.08); padding:1rem; display:flex; flex-direction:column; gap:.6rem; }
 .card:hover{ transform: translateY(-2px); transition:transform .12s ease; }
 .softlist li+li{ margin-top:.25rem; }
-
   </style>
 </head>
-<body>
+<body class="font-sans">
      <header class="top-bar">
         <div class="top-left">
-            <img src="img/logo.png"
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Green_cow_logo.svg/512px-Green_cow_logo.svg.png"
                 alt="Logo" class="logo">
             <span class="brand">Smart Farmers</span>
         </div>
 
         <div class="top-center">
             <a href="live weather.html"><button id="weather-btn">🌤 Live Weather</button></a>
-
         </div>
 
         <div class="top-right">
@@ -110,61 +80,48 @@
     </header>
 
     <!-- Navigation Bar -->
+    <section>
+        <nav class="navbar">
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link active">Farming</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="fruitCrops.html">Fruit Crops</a></li>
+                            <li><a href="fieldCrops.html">Field Crops</a></li>
+                            <li><a href="vegetable.html">Vegetable Crops</a></li>
+                            <li><a href="organic.html">Organic Culture</a></li>
+                            <li><a href="water-management.html">Water Management</a></li>
+                        </ul>
+                    </li>
 
-                <li class="dropdown">
-                    <a href="#" class="nav-link active">Farming</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="fruitCrops.html">Fruit Crops</a></li>
-                        <li><a href="fieldCrops.html">Field Crops</a></li>
-                        <li><a href="vegetable.html">Vegetable Crops</a></li>
-                        <li><a href="organic.html">Organic Culture</a></li>
-                        <li><a href="water-management.html">Water Management</a></li>
-                    </ul>
-                </li>
+                    <li><a href="service.html" class="nav-link">Services</a></li>
+                    <li><a href="subsidy.html" class="nav-link">Subsidy</a></li>
 
-                <li><a href="service.html" class="nav-link">Services</a></li>
-                <li><a href="subsidy.html" class="nav-link">Subsidy</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link active">Market_place</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="seller.html">Seller</a></li>
+                            <li><a href="buyer.html">Buyer</a></li>
+                        </ul>
+                    </li>
 
-                <!-- <li class="dropdown">
-                    <a href="#" class="nav-link active">Market_place</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="seller.html">Seller</a></li>
-                        <li><a href="buyer.html">Buyer</a></li>
-                    </ul>
-                </li> -->
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="#" class="nav-link">Gallery</a></li>
+                    <li><a href="#" class="nav-link">Elements</a></li>
+                    <li><a href="#" class="nav-link">Faq</a></li>
+                    <li><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </section>
 
-                <li><a href="market_place.html" class="nav-link">Market_Place</a></li>
-                
-
-
-                <li><a href="blog.html" class="nav-link">Blog</a></li>
-
-                <li class="dropdown">
-                    <a href="#" class="nav-link active">Farmers</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Labor_log.html">Labor Job </a></li>
-                        <li><a href="jobs.html">Workers</a></li>
-                    </ul>
-                </li>
-
-
-                <li><a href="#" class="nav-link">Elements</a></li>
-                <li><a href="#" class="nav-link">Faq</a></li>
-                <li><a href="#" class="nav-link">Login</a></li>
-            </ul>
-        </div>
-    </nav>
-<!-- <body class="bg-emerald-50/40 text-slate-900 font-sans text-[17px] selection:bg-emerald-200/60"> -->
-  <!-- টপবার -->
-
+  <!-- Hero -->
   <header class="relative overflow-hidden">
-    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-emerald-500 via-teal-500 to-green-500"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-lime-400 via-emerald-400 to-green-600"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
       <div class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-3">
@@ -176,44 +133,44 @@
             </svg>
           </div>
           <div>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow">কৃষি ভর্তুকি</h1>
-            <p class="text-white/90">ঘোষণা দেখুন • আবেদন করুন • ট্র্যাক করুন</p>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow">Agriculture Subsidy</h1>
+            <p class="text-white/90">View announcements • Apply • Track status</p>
           </div>
         </div>
         <div class="flex items-center gap-2">
-          <button id="helpBtn" class="px-3 py-2 rounded-xl bg-white/15 text-white hover:bg-white/25 text-sm">সহায়তা</button>
-          <button id="adminToggle" class="px-3 py-2 rounded-xl bg-white text-emerald-700 hover:bg-emerald-50 text-sm shadow-soft">অ্যাডমিন</button>
+          <button id="helpBtn" class="px-3 py-2 rounded-xl bg-white/15 text-white hover:bg-white/25 text-sm">Help</button>
+          <button id="adminToggle" class="px-3 py-2 rounded-xl bg-white text-emerald-700 hover:bg-emerald-50 text-sm shadow-soft">Admin</button>
         </div>
       </div>
-      <!-- ধাপ -->
+      <!-- steps -->
       <div class="mt-4 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div class="rounded-2xl bg-white/10 backdrop-blur p-4 text-white shadow-soft">
-          <div class="text-lg font-semibold">১) ঘোষণা দেখুন</div>
-          <div class="text-white/90 text-sm">খোলা স্কিম বেছে নিন</div>
+          <div class="text-lg font-semibold">1) View Announcements</div>
+          <div class="text-white/90 text-sm">Pick an open scheme</div>
         </div>
         <div class="rounded-2xl bg-white/10 backdrop-blur p-4 text-white shadow-soft">
-          <div class="text-lg font-semibold">২) আবেদন করুন</div>
-          <div class="text-white/90 text-sm">সহজ ফরম পূরণ করুন</div>
+          <div class="text-lg font-semibold">2) Apply</div>
+          <div class="text-white/90 text-sm">Fill the simple form</div>
         </div>
         <div class="rounded-2xl bg-white/10 backdrop-blur p-4 text-white shadow-soft">
-          <div class="text-lg font-semibold">৩) স্ট্যাটাস দেখুন</div>
-          <div class="text-white/90 text-sm">অনুমোদন হলে SMS/কল</div>
+          <div class="text-lg font-semibold">3) See Status</div>
+          <div class="text-white/90 text-sm">Get SMS/Call on approval</div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- ট্যাব ও ফিল্টার -->
+  <!-- Tabs & Filters -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 pb-24">
     <div class="bg-white rounded-2xl shadow-soft p-3 sm:p-4">
       <div class="flex flex-wrap items-center gap-2">
-        <button data-tab="announcements" class="tab-btn tab-active">📢 ঘোষণা</button>
-        <button data-tab="apply" class="tab-btn">📝 আবেদন ও ট্র্যাকিং</button>
-        <button data-tab="help" class="tab-btn">❓ সহায়তা</button>
+        <button data-tab="announcements" class="tab-btn tab-active">📢 Announcements</button>
+        <button data-tab="apply" class="tab-btn">📝 Apply & Tracking</button>
+        <button data-tab="help" class="tab-btn">❓ Help</button>
 
         <div class="ml-auto flex flex-wrap items-center gap-2 w-full sm:w-auto">
           <div class="relative flex-1 sm:flex-none">
-            <input id="searchInput" type="text" placeholder="স্কিম খুঁজুন…"
+            <input id="searchInput" type="text" placeholder="Search schemes…"
               class="w-full sm:w-64 px-4 py-3 rounded-xl bg-emerald-50 border border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm pr-9">
             <svg class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <circle cx="11" cy="11" r="8" stroke-width="1.5"></circle>
@@ -221,109 +178,109 @@
             </svg>
           </div>
           <select id="statusFilter" class="px-3 py-3 rounded-xl bg-emerald-50 border border-emerald-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-            <option value="all">সব স্ট্যাটাস</option>
-            <option value="open">খোলা</option>
-            <option value="closed">বন্ধ</option>
-            <option value="expired">মেয়াদোত্তীর্ণ</option>
+            <option value="all">All statuses</option>
+            <option value="open">Open</option>
+            <option value="closed">Closed</option>
+            <option value="expired">Expired</option>
           </select>
-          <button id="addSchemeBtn" class="hidden admin-only px-4 py-3 rounded-xl bg-emerald-600 text-white text-sm hover:bg-emerald-700 shadow-lift">+ নতুন স্কিম</button>
+          <button id="addSchemeBtn" class="hidden admin-only px-4 py-3 rounded-xl bg-emerald-600 text-white text-sm hover:bg-emerald-700 shadow-lift">+ New Scheme</button>
         </div>
       </div>
     </div>
 
-    <!-- ঘোষণা -->
+    <!-- Announcements -->
     <section id="announcements" class="tab-panel mt-5 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      <!-- JS দিয়ে কার্ড আসবে -->
+      <!-- JS renders cards here -->
     </section>
 
-    <!-- আবেদন ও ট্র্যাকিং -->
+    <!-- Apply & Tracking -->
     <section id="apply" class="tab-panel mt-5 hidden">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- ফরম -->
+        <!-- Form -->
         <div class="bg-white rounded-2xl shadow-soft p-5">
           <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold">📝 আবেদন ফরম</h3>
-            <button id="clearFormBtn" class="text-sm text-slate-500 hover:underline">ফরম পরিষ্কার</button>
+            <h3 class="text-xl font-bold">📝 Application Form</h3>
+            <button id="clearFormBtn" class="text-sm text-slate-500 hover:underline">Clear form</button>
           </div>
           <form id="applyForm" class="space-y-4">
             <div>
-              <label class="label">নাম</label>
-              <input name="name" class="input" placeholder="উদাহরণ: রহিম উদ্দিন" required>
+              <label class="label">Name</label>
+              <input name="name" class="input" placeholder="e.g., Rahim Uddin" required>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="label">এনআইডি / আইডি</label>
-                <input name="nid" class="input" placeholder="১০-১৭ ডিজিট" required>
+                <label class="label">NID / ID</label>
+                <input name="nid" class="input" placeholder="10–17 digits" required>
               </div>
               <div>
-                <label class="label">মোবাইল</label>
+                <label class="label">Mobile</label>
                 <input name="phone" class="input" placeholder="01XXXXXXXXX" required>
               </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="label">খাত</label>
+                <label class="label">Sector</label>
                 <select name="farmType" class="input">
-                  <option value="ফসল">ফসল</option>
-                  <option value="পশুপালন">পশুপালন</option>
-                  <option value="মৎস্য">মৎস্য</option>
-                  <option value="উদ্যান">উদ্যান</option>
+                  <option value="Crops">Crops</option>
+                  <option value="Livestock">Livestock</option>
+                  <option value="Fisheries">Fisheries</option>
+                  <option value="Horticulture">Horticulture</option>
                 </select>
               </div>
               <div>
-                <label class="label">উপজেলা/ইউনিয়ন</label>
-                <input name="location" class="input" placeholder="উদাহরণ: সাভার, আশুলিয়া">
+                <label class="label">Upazila/Union</label>
+                <input name="location" class="input" placeholder="e.g., Savar, Ashulia">
               </div>
             </div>
             <div>
-              <label class="label">স্কিম বাছাই</label>
+              <label class="label">Choose Scheme</label>
               <select name="schemeId" id="schemeSelect" class="input"></select>
             </div>
             <div>
-              <label class="label">মন্তব্য (ঐচ্ছিক)</label>
-              <textarea name="notes" class="input min-h-[100px]" placeholder="যদি কিছু জানাতে চান…"></textarea>
+              <label class="label">Notes (optional)</label>
+              <textarea name="notes" class="input min-h-[100px]" placeholder="Anything you want to mention…"></textarea>
             </div>
-            <button class="w-full py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 shadow-lift">আবেদন জমা দিন</button>
+            <button class="w-full py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 shadow-lift">Submit Application</button>
           </form>
         </div>
-        <!-- ট্র্যাকিং -->
+        <!-- Tracking -->
         <div class="bg-white rounded-2xl shadow-soft p-5">
           <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold">📦 আমার আবেদনসমূহ</h3>
+            <h3 class="text-xl font-bold">📦 My Applications</h3>
             <div class="flex gap-2">
-              <button id="exportBtn" class="text-sm px-3 py-2 rounded-xl border border-emerald-200 hover:bg-emerald-50">ডেটা এক্সপোর্ট</button>
-              <label for="importFile" class="text-sm px-3 py-2 rounded-xl border border-emerald-200 hover:bg-emerald-50 cursor-pointer">ইমপোর্ট</label>
+              <button id="exportBtn" class="text-sm px-3 py-2 rounded-xl border border-emerald-200 hover:bg-emerald-50">Export Data</button>
+              <label for="importFile" class="text-sm px-3 py-2 rounded-xl border border-emerald-200 hover:bg-emerald-50 cursor-pointer">Import</label>
               <input id="importFile" type="file" accept="application/json" class="hidden">
             </div>
           </div>
-          <div class="text-sm text-slate-600 mb-3">স্ট্যাটাসে ক্লিক করলে বিস্তারিত দেখাবে।</div>
+          <div class="text-sm text-slate-600 mb-3">Click the status to see details.</div>
           <div id="applicationsList" class="space-y-4"></div>
         </div>
       </div>
     </section>
 
-    <!-- সহায়তা -->
+    <!-- Help -->
     <section id="help" class="tab-panel mt-5 hidden">
       <div class="bg-white rounded-2xl shadow-soft p-5 space-y-4">
-        <h3 class="text-xl font-bold">❓ কীভাবে ব্যবহার করবেন</h3>
+        <h3 class="text-xl font-bold">❓ How to use</h3>
         <ul class="list-disc pl-6 space-y-2 text-slate-700">
-          <li>📢 <span class="font-medium">ঘোষণা</span> ট্যাবে গিয়ে খোলা স্কিম দেখুন।</li>
-          <li>🟢 <span class="font-medium">খোলা</span> স্কিমে <span class="font-medium">আবেদন</span> চাপুন।</li>
-          <li>📝 আপনার তথ্য দিন এবং জমা দিন।</li>
-          <li>📦 <span class="font-medium">আমার আবেদনসমূহ</span> এ স্ট্যাটাস দেখুন: জমা → পর্যালোচনা → অনুমোদিত / বাতিল</li>
-          <li>🛡️ আপনার ডেটা এই ডিভাইসেই সেভ থাকে (localStorage)।</li>
+          <li>📢 Go to <span class="font-medium">Announcements</span> to view open schemes.</li>
+          <li>🟢 On an <span class="font-medium">Open</span> scheme, click <span class="font-medium">Apply</span>.</li>
+          <li>📝 Fill your information and submit.</li>
+          <li>📦 See status under <span class="font-medium">My Applications</span>: Submitted → Under Review → Approved / Rejected.</li>
+          <li>🛡️ Your data is saved only on this device (localStorage).</li>
         </ul>
-        <p class="text-sm text-slate-500">নোট: অ্যাডমিন বাটনে PIN <code class="px-1 rounded bg-slate-100">1234</code> দিলে নতুন স্কিম যোগ/এডিট করতে পারবেন।</p>
+        <p class="text-sm text-slate-500">Note: Click the Admin button and enter PIN <code class="px-1 rounded bg-slate-100">1234</code> to add/edit schemes.</p>
       </div>
     </section>
   </main>
 
-  <!-- স্কিম মডাল -->
+  <!-- Scheme Modal -->
   <div id="schemeModal" class="fixed inset-0 hidden items-end sm:items-center justify-center z-50">
     <div class="absolute inset-0 bg-black/40" data-close-modal></div>
     <div class="w-full sm:max-w-xl bg-white rounded-t-2xl sm:rounded-2xl shadow-soft p-6 sm:mx-4">
       <div class="flex items-center justify-between mb-4">
-        <h3 id="modalTitle" class="text-xl font-bold">নতুন স্কিম</h3>
+        <h3 id="modalTitle" class="text-xl font-bold">New Scheme</h3>
         <button data-close-modal class="p-2 rounded-lg hover:bg-slate-100">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
@@ -333,100 +290,96 @@
       <form id="schemeForm" class="space-y-4">
         <input type="hidden" name="id">
         <div>
-          <label class="label">শিরোনাম</label>
-          <input name="title" class="input" placeholder="যেমন: সার ভর্তুকি ২০২৫" required>
+          <label class="label">Title</label>
+          <input name="title" class="input" placeholder="e.g., Fertilizer Subsidy 2025" required>
         </div>
         <div>
-          <label class="label">প্রতিষ্ঠান</label>
-          <input name="org" class="input" placeholder="যেমন: কৃষি মন্ত্রণালয়" required>
+          <label class="label">Organization</label>
+          <input name="org" class="input" placeholder="e.g., Ministry of Agriculture" required>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label class="label">শুরু</label>
+            <label class="label">Open Date</label>
             <input name="openDate" type="date" class="input" required>
           </div>
           <div>
-            <label class="label">শেষ</label>
+            <label class="label">Close Date</label>
             <input name="closeDate" type="date" class="input" required>
           </div>
           <div>
-            <label class="label">স্ট্যাটাস</label>
+            <label class="label">Status</label>
             <select name="status" class="input">
-              <option value="open">খোলা</option>
-              <option value="closed">বন্ধ</option>
-              <option value="expired">মেয়াদোত্তীর্ণ</option>
+              <option value="open">Open</option>
+              <option value="closed">Closed</option>
+              <option value="expired">Expired</option>
             </select>
           </div>
         </div>
         <div>
-          <label class="label">সুবিধার সারাংশ</label>
-          <input name="benefit" class="input" placeholder="যেমন: সর্বোচ্চ ৪০% খরচ সহায়তা">
+          <label class="label">Benefit Summary</label>
+          <input name="benefit" class="input" placeholder="e.g., Up to 40% cost support">
         </div>
         <div>
-          <label class="label">বিবরণ</label>
-          <textarea name="description" class="input min-h-[120px]" placeholder="সংক্ষেপে বিস্তারিত…"></textarea>
+          <label class="label">Description</label>
+          <textarea name="description" class="input min-h-[120px]" placeholder="Short details…"></textarea>
         </div>
         <div class="flex items-center justify-between gap-3">
-          <button type="button" data-close-modal class="px-4 py-2 rounded-xl border border-slate-200 hover:bg-slate-50">বাতিল</button>
-          <button class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700">সংরক্ষণ</button>
+          <button type="button" data-close-modal class="px-4 py-2 rounded-xl border border-slate-200 hover:bg-slate-50">Cancel</button>
+          <button class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700">Save</button>
         </div>
       </form>
     </div>
   </div>
-<section>
-        <footer>
-            <div class="footer-top">
-                <div class="footer-column logo-desc">
-                    <h2><span class="leaf">🌿</span> Smart Farming</h2>
-                    <p>Organic farming is beneficial to a wide range of organisms. It restores the biodiversity of the
-                        core
-                        resources and habitat of the region. The symbiosis between flora and fauna, animals, and humans
-                        with
-                        a chemical-free environment is paradise on Earth.</p>
-                </div>
-                <div class="footer-column contact">
-                    <h3>Contact</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Anthony Benoit 490 E Main Street Norwich CT 06360</p>
-                    <p><i class="fas fa-phone"></i> +1 (2) 345 6789</p>
-                    <p><i class="fas fa-fax"></i> +1 (2) 345 6789</p>
-                    <p><i class="fas fa-envelope"></i> contact@yourdomain.com</p>
-                </div>
-                <div class="footer-column social">
-                    <h3>Follow Us</h3>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-google"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column subscribe">
-                    <h3>Subscribe</h3>
-                    <p>Enter your email and we'll send you latest information and plans.</p>
-                    <div class="subscribe-form">
-                        <input type="email" placeholder="Your Email ID" id="subscribe-email">
-                        <button id="subscribe-btn"><i class="fas fa-envelope"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>Copyright © 2018. All rights reserved by, DesignThemes</p>
-                <nav>
-                    <a href="index.html">Home</a>
-                    <a href="#">Join Us</a>
-                    <a href="service.html">Services</a>
-                    <a href="about.html">About</a>
-                    <a href="#">Contact</a>
-                </nav>
-            </div>
-        </footer>
-    </section>
+
+  <section>
+    <footer>
+      <div class="footer-top">
+        <div class="footer-column logo-desc">
+          <h2><span class="leaf">🌿</span> Smart Farming</h2>
+          <p>Organic farming benefits a wide range of organisms. It restores biodiversity, resources, and habitats of the region. The symbiosis between flora and fauna, animals, and humans in a chemical-free environment is paradise on Earth.</p>
+        </div>
+        <div class="footer-column contact">
+          <h3>Contact</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Anthony Benoit 490 E Main Street Norwich CT 06360</p>
+          <p><i class="fas fa-phone"></i> +1 (2) 345 6789</p>
+          <p><i class="fas fa-fax"></i> +1 (2) 345 6789</p>
+          <p><i class="fas fa-envelope"></i> contact@yourdomain.com</p>
+        </div>
+        <div class="footer-column social">
+          <h3>Follow Us</h3>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-google"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="footer-column subscribe">
+          <h3>Subscribe</h3>
+          <p>Enter your email and we’ll send the latest information and plans.</p>
+          <div class="subscribe-form">
+            <input type="email" placeholder="Your Email ID" id="subscribe-email">
+            <button id="subscribe-btn"><i class="fas fa-envelope"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Copyright © 2018. All rights reserved by, DesignThemes</p>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="#">Join Us</a>
+          <a href="service.html">Services</a>
+          <a href="about.html">About</a>
+          <a href="#">Contact</a>
+        </nav>
+      </div>
+    </footer>
+  </section>
 
   <script>
-
-    /* কৃষি ভর্তুকি — Bangla Only (Frontend)
- * টেক: HTML + Tailwind CDN + Plain CSS + Vanilla JS
- * স্টোরেজ: localStorage
+/* Agriculture Subsidy — English UI (Frontend)
+ * Tech: HTML + Tailwind CDN + Plain CSS + Vanilla JS
+ * Storage: localStorage
  */
 
 const $ = (s, el=document)=>el.querySelector(s);
@@ -443,9 +396,39 @@ const store = {
 (function seed(){
   if (store.schemes.length===0){
     store.schemes = [
-      { id: crypto.randomUUID(), title:"সার ভর্তুকি ২০২৫", org:"কৃষি মন্ত্রণালয়", openDate:"2025-08-01", closeDate:"2025-09-30", status:"open", benefit:"সর্বোচ্চ ৪০% খরচ সহায়তা", description:"ছোট চাষিদের জন্য ইউরিয়া, টিএসপি, ডিএপি ক্রয়ে সহায়তা।", createdAt:Date.now() },
-      { id: crypto.randomUUID(), title:"সোলার সেচ পাম্প অনুদান", org:"জ্বালানি কর্তৃপক্ষ", openDate:"2025-06-15", closeDate:"2025-08-31", status:"open", benefit:"ক্রয় ও স্থাপনে অনুদান", description:"ডিজেল খরচ কমাতে পরিচ্ছন্ন সেচ ব্যবস্থার প্রসার।", createdAt:Date.now() },
-      { id: crypto.randomUUID(), title:"ধানের চারা সহায়তা (আমন)", org:"কৃষি সম্প্রসারণ অধিদপ্তর", openDate:"2025-05-01", closeDate:"2025-06-15", status:"expired", benefit:"ফ্রি সার্টিফাইড চারা", description:"সহনশীল উচ্চফলনশীল জাতের চারা বিতরণ।", createdAt:Date.now() }
+      {
+        id: crypto.randomUUID(),
+        title: "Fertilizer Subsidy 2025",
+        org: "Ministry of Agriculture",
+        openDate: "2025-08-01",
+        closeDate: "2025-09-30",
+        status: "open",
+        benefit: "Up to 40% cost support",
+        description: "Support for smallholders to purchase Urea, TSP, DAP.",
+        createdAt: Date.now()
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Solar Irrigation Pump Grant",
+        org: "Sustainable & Renewable Energy Authority",
+        openDate: "2025-06-15",
+        closeDate: "2025-08-31",
+        status: "open",
+        benefit: "Grant for purchase & installation",
+        description: "Promote clean irrigation and reduce diesel expenses.",
+        createdAt: Date.now()
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Paddy Seedling Assistance (Aman)",
+        org: "Department of Agricultural Extension",
+        openDate: "2025-05-01",
+        closeDate: "2025-06-15",
+        status: "expired",
+        benefit: "Free certified seedlings",
+        description: "Distribution of resilient, high-yielding seedlings.",
+        createdAt: Date.now()
+      }
     ];
   }
 })();
@@ -473,7 +456,11 @@ const el = {
 
 // Utils
 function todayStr(){ return new Date().toISOString().slice(0,10); }
-function fmtDate(s){ if(!s) return ""; const d=new Date(s+"T00:00:00"); return d.toLocaleDateString('bn-BD',{year:'numeric',month:'short',day:'numeric'}); }
+function fmtDate(s){
+  if(!s) return "";
+  const d=new Date(s+"T00:00:00");
+  return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+}
 function computedStatus(s){
   if (s.status==='expired') return 'expired';
   const t=todayStr();
@@ -483,7 +470,7 @@ function computedStatus(s){
 }
 function statusBadge(st){
   const cls = st==='open' ? 'badge-open' : st==='closed' ? 'badge-closed' : 'badge-expired';
-  const label = st==='open' ? 'খোলা' : st==='closed' ? 'বন্ধ' : 'মেয়াদোত্তীর্ণ';
+  const label = st==='open' ? 'Open' : st==='closed' ? 'Closed' : 'Expired';
   return `<span class="badge ${cls}">${label}</span>`;
 }
 
@@ -503,12 +490,12 @@ el.helpBtn.addEventListener('click',()=>{
 let admin = false;
 function applyAdminUI(){
   $$(".admin-only").forEach(x=>x.classList.toggle('hidden', !admin));
-  el.adminToggle.textContent = admin ? "অ্যাডমিন ✓" : "অ্যাডমিন";
+  el.adminToggle.textContent = admin ? "Admin ✓" : "Admin";
 }
 el.adminToggle.addEventListener('click',()=>{
   if (!admin){
-    const pin = prompt("অ্যাডমিন PIN দিন (ডেমো: 1234):");
-    if (pin!=="1234"){ alert("ভুল PIN"); return; }
+    const pin = prompt("Enter Admin PIN (demo: 1234):");
+    if (pin!=="1234"){ alert("Incorrect PIN"); return; }
   }
   admin = !admin;
   applyAdminUI();
@@ -520,7 +507,7 @@ function openSchemeModal(s=null){
   el.schemeModal.classList.remove('hidden');
   el.schemeModal.classList.add('flex');
   el.schemeForm.reset();
-  el.modalTitle.textContent = s ? "স্কিম এডিট" : "নতুন স্কিম";
+  el.modalTitle.textContent = s ? "Edit Scheme" : "New Scheme";
   if (s){
     el.schemeForm.id.value = s.id;
     el.schemeForm.title.value = s.title;
@@ -551,8 +538,8 @@ el.schemeForm.addEventListener('submit',(e)=>{
     openDate: v.openDate,
     closeDate: v.closeDate,
     status: v.status,
-    benefit: v.benefit.trim(),
-    description: v.description.trim(),
+    benefit: (v.benefit||"").trim(),
+    description: (v.description||"").trim(),
     createdAt: Date.now()
   };
   const list = store.schemes;
@@ -561,7 +548,7 @@ el.schemeForm.addEventListener('submit',(e)=>{
   store.schemes = list;
   closeSchemeModal();
   refresh();
-  alert("স্কিম সংরক্ষিত হয়েছে");
+  alert("Scheme saved");
 });
 
 // Render announcements
@@ -575,7 +562,8 @@ function renderSchemes(){
     .sort((a,b)=> a.statusComputed==='open' ? -1 : 1);
 
   el.announcements.innerHTML = list.map(s=>{
-    const desc = (s.description||"").slice(0,110) + ((s.description||"").length>110 ? "…" : "");
+    const descFull = (s.description||"");
+    const desc = descFull.slice(0,110) + (descFull.length>110 ? "…" : "");
     const tone = s.statusComputed==='open' ? "from-emerald-50 to-emerald-100 border-emerald-200" :
                  s.statusComputed==='closed' ? "from-rose-50 to-rose-100 border-rose-200" :
                  "from-amber-50 to-amber-100 border-amber-200";
@@ -587,13 +575,13 @@ function renderSchemes(){
       <p class="text-sm text-slate-700">${s.org}</p>
       ${s.benefit ? `<div class="text-sm rounded-xl px-3 py-1 bg-white border border-emerald-200 inline-block">${s.benefit}</div>` : ""}
       <p class="text-sm text-slate-700">${desc}</p>
-      <div class="text-xs text-slate-600">আবেদনের সময়: ${fmtDate(s.openDate)} – ${fmtDate(s.closeDate)}</div>
+      <div class="text-xs text-slate-600">Application window: ${fmtDate(s.openDate)} – ${fmtDate(s.closeDate)}</div>
       <div class="mt-2 flex items-center justify-between">
-        <button class="px-3 py-2 text-sm rounded-xl bg-white border border-slate-200 hover:bg-slate-50" data-view="${s.id}">বিস্তারিত</button>
+        <button class="px-3 py-2 text-sm rounded-xl bg-white border border-slate-200 hover:bg-slate-50" data-view="${s.id}">Details</button>
         <div class="flex items-center gap-2">
-          <button class="px-3 py-2 text-sm rounded-xl bg-emerald-600 text-white hover:bg-emerald-700" data-apply="${s.id}" ${s.statusComputed!=='open'?'disabled':''}>আবেদন</button>
-          <button class="admin-only px-3 py-2 text-sm rounded-xl bg-slate-900 text-white hover:bg-slate-800" data-edit="${s.id}">এডিট</button>
-          <button class="admin-only px-3 py-2 text-sm rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50" data-del="${s.id}">ডিলিট</button>
+          <button class="px-3 py-2 text-sm rounded-xl bg-emerald-600 text-white hover:bg-emerald-700" data-apply="${s.id}" ${s.statusComputed!=='open'?'disabled':''}>Apply</button>
+          <button class="admin-only px-3 py-2 text-sm rounded-xl bg-slate-900 text-white hover:bg-slate-800" data-edit="${s.id}">Edit</button>
+          <button class="admin-only px-3 py-2 text-sm rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50" data-del="${s.id}">Delete</button>
         </div>
       </div>
     </article>`;
@@ -603,7 +591,7 @@ function renderSchemes(){
   $$("#announcements [data-view]").forEach(b=>b.addEventListener('click',()=>{
     const id = b.getAttribute('data-view');
     const s = store.schemes.find(x=>x.id===id);
-    alert(`${s.title}\n\nপ্রতিষ্ঠান: ${s.org}\nসময়: ${fmtDate(s.openDate)} – ${fmtDate(s.closeDate)}\nস্ট্যাটাস: ${computedStatus(s)}\n\n${s.description||''}`);
+    alert(`${s.title}\n\nOrganization: ${s.org}\nWindow: ${fmtDate(s.openDate)} – ${fmtDate(s.closeDate)}\nStatus: ${computedStatus(s)}\n\n${s.description||''}`);
   }));
   $$("#announcements [data-apply]").forEach(b=>b.addEventListener('click',()=>{
     const id = b.getAttribute('data-apply');
@@ -618,7 +606,7 @@ function renderSchemes(){
   }));
   $$("#announcements [data-del]").forEach(b=>b.addEventListener('click',()=>{
     const id = b.getAttribute('data-del');
-    if (!confirm("স্কিম ডিলিট করবেন?")) return;
+    if (!confirm("Delete this scheme?")) return;
     store.schemes = store.schemes.filter(x=>x.id!==id);
     refresh();
   }));
@@ -631,31 +619,31 @@ el.statusFilter.addEventListener('change', renderSchemes);
 // Apply form
 function refreshSchemeSelect(){
   const openList = store.schemes.map(s=>({...s, statusComputed:computedStatus(s)})).filter(s=>s.statusComputed==='open');
-  el.schemeSelect.innerHTML = openList.map(s=>`<option value="${s.id}">${s.title}</option>`).join('') || '<option disabled>কোনো খোলা স্কিম নেই</option>';
+  el.schemeSelect.innerHTML = openList.map(s=>`<option value="${s.id}">${s.title}</option>`).join('') || '<option disabled>No open scheme</option>';
 }
 el.clearFormBtn.addEventListener('click',()=>el.applyForm.reset());
 
 el.applyForm.addEventListener('submit',(e)=>{
   e.preventDefault();
   const v = Object.fromEntries(new FormData(el.applyForm).entries());
-  if (!v.schemeId){ alert("স্কিম নির্বাচন করুন"); return; }
+  if (!v.schemeId){ alert("Please choose a scheme"); return; }
   const app = {
     id: crypto.randomUUID(),
-    name: v.name.trim(),
-    nid: v.nid.trim(),
-    phone: v.phone.trim(),
+    name: (v.name||"").trim(),
+    nid: (v.nid||"").trim(),
+    phone: (v.phone||"").trim(),
     location: (v.location||'').trim(),
     farmType: v.farmType,
     schemeId: v.schemeId,
     notes: (v.notes||'').trim(),
     status: "submitted",
-    timeline: [{ key:"submitted", label:"জমা", at: Date.now() }],
+    timeline: [{ key:"submitted", label:"Submitted", at: Date.now() }],
     createdAt: Date.now(),
   };
   const arr = store.apps; arr.push(app); store.apps = arr;
   e.target.reset();
   refresh();
-  alert("আবেদন জমা হয়েছে!");
+  alert("Application submitted!");
 });
 
 function setAppStatus(id,next){
@@ -663,7 +651,7 @@ function setAppStatus(id,next){
   const a = apps.find(x=>x.id===id);
   if (!a) return;
   a.status = next;
-  const labels={submitted:"জমা", review:"পর্যালোচনা", approved:"অনুমোদিত", rejected:"বাতিল"};
+  const labels={submitted:"Submitted", review:"Under Review", approved:"Approved", rejected:"Rejected"};
   a.timeline.push({ key: next, label: labels[next]||next, at: Date.now() });
   store.apps = apps;
   refresh();
@@ -674,11 +662,11 @@ function renderApps(){
   const order = ["submitted","review","approved"];
   el.applicationsList.innerHTML = store.apps.slice().reverse().map(a=>{
     const s = idx[a.schemeId];
-    const time = new Date(a.createdAt).toLocaleString('bn-BD');
+    const time = new Date(a.createdAt).toLocaleString('en-US');
     const rejected = a.status==='rejected';
     const stepsHtml = order.map(k=>{
       const active = a.timeline.some(t=>t.key===k);
-      const label = ({submitted:"জমা", review:"পর্যালোচনাধীন", approved:"অনুমোদিত"})[k];
+      const label = ({submitted:"Submitted", review:"Under Review", approved:"Approved"})[k];
       return `<div class="flex items-center gap-2 text-xs ${active?'text-emerald-700':''}">
         <span class="w-2 h-2 rounded-full ${active?'bg-emerald-500':'bg-slate-300'}"></span>
         <span>${label}</span>
@@ -689,17 +677,17 @@ function renderApps(){
         <div>
           <div class="text-sm text-slate-500">${time}</div>
           <div class="font-semibold">${a.name} — <span class="text-slate-600">${a.nid}</span></div>
-          <div class="text-sm text-slate-600">স্কিম: <span class="font-medium">${s ? s.title : "মুছে ফেলা স্কিম"}</span></div>
+          <div class="text-sm text-slate-600">Scheme: <span class="font-medium">${s ? s.title : "Deleted scheme"}</span></div>
         </div>
         <div class="flex items-center gap-2">
-          <span class="badge ${rejected?'badge-closed': a.status==='approved'?'badge-open':'badge-open'}">${rejected?'বাতিল':a.status}</span>
-          <button class="admin-only px-3 py-1.5 text-sm rounded-xl bg-slate-900 text-white hover:bg-slate-800" data-advance="${a.id}">স্ট্যাটাস বাড়ান</button>
-          <button class="admin-only px-3 py-1.5 text-sm rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50" data-reject="${a.id}">বাতিল</button>
-          <button class="admin-only px-3 py-1.5 text-sm rounded-xl border border-slate-200 hover:bg-slate-50" data-delete-app="${a.id}">ডিলিট</button>
+          <span class="badge ${rejected?'badge-closed': a.status==='approved'?'badge-open':'badge-open'}">${rejected?'Rejected':a.status}</span>
+          <button class="admin-only px-3 py-1.5 text-sm rounded-xl bg-slate-900 text-white hover:bg-slate-800" data-advance="${a.id}">Advance Status</button>
+          <button class="admin-only px-3 py-1.5 text-sm rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50" data-reject="${a.id}">Reject</button>
+          <button class="admin-only px-3 py-1.5 text-sm rounded-xl border border-slate-200 hover:bg-slate-50" data-delete-app="${a.id}">Delete</button>
         </div>
       </div>
-      <div class="mt-3 flex items-center gap-4 flex-wrap">${stepsHtml} ${rejected?'<div class="flex items-center gap-2 text-xs text-rose-700"><span class="w-2 h-2 rounded-full bg-rose-500"></span><span>বাতিল</span></div>':''}</div>
-      ${a.notes ? `<p class="mt-2 text-sm text-slate-700"><span class="font-medium">নোট:</span> ${a.notes}</p>` : ""}
+      <div class="mt-3 flex items-center gap-4 flex-wrap">${stepsHtml} ${rejected?'<div class="flex items-center gap-2 text-xs text-rose-700"><span class="w-2 h-2 rounded-full bg-rose-500"></span><span>Rejected</span></div>':''}</div>
+      ${a.notes ? `<p class="mt-2 text-sm text-slate-700"><span class="font-medium">Note:</span> ${a.notes}</p>` : ""}
     </div>`;
   }).join('');
 
@@ -709,16 +697,16 @@ function renderApps(){
     const app = store.apps.find(x=>x.id===id);
     const seq=["submitted","review","approved"];
     const i=seq.indexOf(app.status);
-    if (i<seq.length-1) setAppStatus(id, seq[i+1]); else alert("ইতোমধ্যেই অনুমোদিত।");
+    if (i<seq.length-1) setAppStatus(id, seq[i+1]); else alert("Already approved.");
   }));
   $$("#applicationsList [data-reject]").forEach(b=>b.addEventListener('click',()=>{
     const id=b.getAttribute('data-reject');
-    if (!confirm("বাতিল করবেন?")) return;
+    if (!confirm("Reject this application?")) return;
     setAppStatus(id, "rejected");
   }));
   $$("#applicationsList [data-delete-app]").forEach(b=>b.addEventListener('click',()=>{
     const id=b.getAttribute('data-delete-app');
-    if (!confirm("ডিলিট করবেন?")) return;
+    if (!confirm("Delete this application?")) return;
     store.apps = store.apps.filter(x=>x.id!==id);
     refresh();
   }));
@@ -741,8 +729,8 @@ el.importFile.addEventListener('change',(e)=>{
       if (Array.isArray(data.schemes)) store.schemes=data.schemes;
       if (Array.isArray(data.applications)) store.apps=data.applications;
       refresh();
-      alert("ইমপোর্ট সম্পন্ন");
-    }catch(err){ alert("ফাইল সঠিক নয়"); }
+      alert("Import complete");
+    }catch(err){ alert("Invalid file"); }
   };
   reader.readAsText(file);
 });
@@ -756,8 +744,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   const y = document.getElementById("year"); if (y) y.textContent = new Date().getFullYear();
   refresh();
 });
-
-
   </script>
 </body>
 </html>
